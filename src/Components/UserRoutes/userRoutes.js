@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Switch} from 'react-router-dom';
 import {commonRoutes} from '../CommonRoutes/commonRoutes';
-import Dashboard from './Dashboard';
+import Dashboard from './UserDashboard';
 import Categories from './Categories';
 import Offers from './Offers';
 import InventoryDashboard from './Inventory/InventoryDashboard';
@@ -17,22 +17,19 @@ const commonRoutesMapped = commonRoutes.map(({path, component}, i) => {
 
 export default (
    <>
-      <Route path='/'>
+      <Switch>
+         <Route component={Categories} exact path='/' />
 
-         <Route component={Dashboard} />
+         {commonRoutesMapped}
 
-         <Switch>
-            <Route component={Categories} exact path='/' />
-            {commonRoutesMapped}
-            <Route component={Offers} path='/offers' />
-            <Route component={AddInventory} path='/inventory/add' />
-            <Route component={ViewInventory} path='/inventory/view' />
-            <Route component={InventoryDashboard} path='/inventory' />
-            <Route component={UserPreferences} path='/userpreferences' />
-            <Route render={() => <h1>404: Not Found</h1>} />
-         </Switch>
+         <Route component={Offers} path='/offers' />
 
+         <Route component={AddInventory} path='/inventory/add' />
+         <Route component={ViewInventory} path='/inventory/view' />
+         <Route component={InventoryDashboard} path='/inventory' />
 
-      </Route>
+         <Route component={UserPreferences} path='/userpreferences' />
+         <Route render={() => <h1>404: Not Found</h1>} />
+      </Switch>
    </>
 );

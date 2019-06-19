@@ -1,23 +1,34 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {getUserSession} from '../../redux/reducers/userReducer';
+import {logInUser} from '../../redux/reducers/userReducer';
+import {logOutUser} from '../../redux/reducers/userReducer';
 import Axios from 'axios';
-import {Redirect} from 'react-router-dom';
+import {withRouter} from 'react-router';
 
-export default class LogInLogOut extends Component {
+class LogInLogOut extends Component {
    constructor(props) {
       super(props);
       this.state = {
          username: 'test',
-         password: 'test',
-         toLandingPage: false
+         password: 'test'
       };
       this.handleInputChange = this.handleInputChange.bind(this);
       this.handleLogIn = this.handleLogIn.bind(this);
       this.handleLogOut = this.handleLogOut.bind(this);
    }
-   componentDidUpdate(prevProps) {
-      if (prevProps !== this.props) {
-
-      }
+   componentDidMount() {
+      Axios.get('/api/user')
+         .then(res => {
+            if (res.status === 204) {
+               console.log('No active user session');
+            } else if (res.status === 200) {
+               this.props.logInUser(res.data)
+               this.setState({ toLandingPage: true });
+            }
+         })
+         .then(() => this.props.history.push('/'))
+         .catch(err => console.log(err));     
    }
    handleInputChange(e) {
       const {name, value} = e.target;
@@ -32,36 +43,32 @@ export default class LogInLogOut extends Component {
          .then(() => {
             this.setState({
                username: '',
-               password: '',
-               toLandingPage: true
+               password: ''
             });
          })
+         .then(() => this.props.history.push('/'))
          .catch(err => console.log(err));
    }
    handleLogOut() {
       Axios.post('/auth/user/logout')
          .then(() => this.props.logOutUser() )
-         .then(() => this.setState({ toLandingPage: true }))
+         .then(() => this.props.history.push('/'))
          .catch(err => console.log(err));
    }
    render() {
 
-      if (this.state.toLandingPage) {
-         return <Redirect to='/' />
-      };
-
-      console.log(this.props.isLoggedIn)
+console.log(this.props.history)
 
       return (
-         <>
+         <div>
             {
                this.props.isLoggedIn
                ?
-                  <span id='logout-user'>
-                     <h3>Welcome Back, {this.props.name}!</h3>
+                  <div id='logout-user'>
+                     <h3>Welcome Back, {this.props.userFirstName}!</h3>
                      <button onClick={this.handleLogOut}>Log Out</button>
-                  </span>
-               :
+                  </div>
+               : 
                   <form onSubmit={this.handleLogIn}>
                      <span id='login-inputs'>
                         <span>
@@ -88,7 +95,24 @@ export default class LogInLogOut extends Component {
                      </span>
                   </form>   
             }
-         </>
+         </div>
       );
+   }
+}
+
+const mapStateToProps = reduxState => {
+   const {user} = reduxState;
+   return {
+      isLoggedIn: user.isLoggedIn,
+      userFirstName: user.firstName
+      
    };
 };
+
+export default withRouter(connect(mapStateToProps, 
+   {
+      getUserSession,
+      logInUser,
+      logOutUser
+   }
+)(LogInLogOut))

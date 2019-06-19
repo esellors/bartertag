@@ -3,6 +3,7 @@ const express = require('express');
 const massive = require('massive');
 const session = require('express-session');
 const authController = require('./controllers/authController');
+const userController = require('./controllers/userController');
 const app = express();
 
 const {SERVER_PORT, SESSION_SECRET, DATABASE_STRING} = process.env;
@@ -32,7 +33,7 @@ app.post('/auth/user/register', authController.registerUser);
 app.post('/auth/user/login', authController.loginUser);
 app.post('/auth/user/logout', authController.logoutUser);
 
-
+app.get('/api/user', userController.sendUserSession);
 
 // app.get('/api/location', async (req, res) => {
 //    const {city, state} = req.body;

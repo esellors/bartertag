@@ -41,7 +41,10 @@ module.exports = {
       await db.log_user_login(newUser[0].user_id);
 
       req.session.user = {
+         userId: newUser[0].user_id,
+         locationId: newUser[0].location_id,
          firstName: newUser[0].first_name,
+         lastName: newUser[0].last_name,
          username: newUser[0].username,
          email: newUser[0].email,
          joinDate: newUser[0].time_joined
@@ -53,8 +56,8 @@ module.exports = {
       const {username, password} = req.body;
       const db = req.app.get('db');
 
-      // get user
-      const foundUser = await db.get_user(username);
+      // check for existing username
+      const foundUser = await db.check_user(username);
 
       // authenticate user
       if (!foundUser[0]) {
@@ -71,7 +74,10 @@ module.exports = {
       await db.log_user_login(foundUser[0].user_id);
       
       req.session.user = {
+         userId: foundUser[0].user_id,
+         locationId: foundUser[0].location_id,
          firstName: foundUser[0].first_name,
+         lastName: foundUser[0].last_name,
          username: foundUser[0].username,
          email: foundUser[0].email,
          joinDate: foundUser[0].time_joined
@@ -83,4 +89,4 @@ module.exports = {
       req.session.destroy();
       res.sendStatus(200);
    }
-}
+};

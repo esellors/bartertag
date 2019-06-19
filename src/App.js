@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {connect} from 'react-redux';
+import './reset.css';
+import './index.css';
+import guestRoutes from './Components/GuestRoutes/guestRoutes';
+import userRoutes from './Components/UserRoutes/userRoutes';
+import Header from './Components/Header/Header';
+import Footer from './Components/Footer';
 
-function App() {
+function App(props) {
+
+  const routes = props.isLoggedIn ? userRoutes : guestRoutes;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      {routes}
+      <Footer />
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = reduxState => {
+  const {user} = reduxState;
+  return {isLoggedIn: user.isLoggedIn};
+}
+
+export default connect(mapStateToProps)(App);

@@ -1,16 +1,23 @@
 import React, {Component} from 'react';
 import Axios from 'axios';
+import {Redirect} from 'react-router-dom';
 
 export default class LogInLogOut extends Component {
    constructor(props) {
       super(props);
       this.state = {
          username: 'test',
-         password: 'test'
+         password: 'test',
+         toLandingPage: false
       };
       this.handleInputChange = this.handleInputChange.bind(this);
       this.handleLogIn = this.handleLogIn.bind(this);
       this.handleLogOut = this.handleLogOut.bind(this);
+   }
+   componentDidUpdate(prevProps) {
+      if (prevProps !== this.props) {
+
+      }
    }
    handleInputChange(e) {
       const {name, value} = e.target;
@@ -20,22 +27,31 @@ export default class LogInLogOut extends Component {
       e.preventDefault();
       const {username, password} = this.state;
 
-      Axios.post('/auth/user/login', {username, password}).then(res => {
-         this.props.logInUser(res.data);
-      })
-      .catch(err => console.log(err))
-
-      this.setState({
-         username: '',
-         password: ''
-      });
+      Axios.post('/auth/user/login', {username, password})
+         .then(res => this.props.logInUser(res.data) )
+         .then(() => {
+            this.setState({
+               username: '',
+               password: '',
+               toLandingPage: true
+            });
+         })
+         .catch(err => console.log(err));
    }
    handleLogOut() {
       Axios.post('/auth/user/logout')
-         .then(() => this.props.logOutUser())
+         .then(() => this.props.logOutUser() )
+         .then(() => this.setState({ toLandingPage: true }))
          .catch(err => console.log(err));
    }
    render() {
+
+      if (this.state.toLandingPage) {
+         return <Redirect to='/' />
+      };
+
+      console.log(this.props.isLoggedIn)
+
       return (
          <>
             {
@@ -74,5 +90,5 @@ export default class LogInLogOut extends Component {
             }
          </>
       );
-   }
+   };
 };

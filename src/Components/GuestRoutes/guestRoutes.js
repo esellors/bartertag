@@ -18,9 +18,9 @@ export default (
          <Route component={Dashboard} />
 
          <Switch>
-            <Route component={Register} path='/register' />
             <Route component={Landing} exact path='/' />
             {commonRoutesMapped}
+            <Route component={Register} path='/register' />
             <Route render={() => <h1>404: Not Found</h1>} />
          </Switch>
 

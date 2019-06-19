@@ -5,8 +5,8 @@ export default class LogInLogOut extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         username: '',
-         password: ''
+         username: 'test',
+         password: 'test'
       };
       this.handleInputChange = this.handleInputChange.bind(this);
       this.handleLogIn = this.handleLogIn.bind(this);

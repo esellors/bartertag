@@ -3,6 +3,7 @@
       "barterloo",
       "missionstatement",
       "signin",
-      "signout"
+      "signout",
+      "userpreferences"
    ]
 }

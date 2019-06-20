@@ -40,12 +40,6 @@ class LogInLogOut extends Component {
 
       Axios.post('/auth/user/login', {username, password})
          .then(res => this.props.logInUser(res.data) )
-         .then(() => {
-            this.setState({
-               username: '',
-               password: ''
-            });
-         })
          .then(() => this.props.history.push('/'))
          .catch(err => console.log(err));
    }
@@ -62,7 +56,7 @@ class LogInLogOut extends Component {
                this.props.isLoggedIn
                ?
                   <div id='logout-user'>
-                     <h3>Welcome Back, {this.props.userFirstName}!</h3>
+                     <h3>Welcome, {this.props.userFirstName}!</h3>
                      <button onClick={this.handleLogOut}>Log Out</button>
                   </div>
                : 

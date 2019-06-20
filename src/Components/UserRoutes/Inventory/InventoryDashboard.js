@@ -1,14 +1,15 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-function Inventory() {
+function Inventory(props) {
    return (
       <div>
          <h1>Inventory Dashboard</h1>
-         <Link to='/inventory'>View</Link>
+         <Link to='/inventory/view'>View</Link>
          <Link to='/inventory/add'>Add</Link>
+         {props.children}
       </div>
    );
-};
+}
 
-export default Inventory;
+export default Inventory

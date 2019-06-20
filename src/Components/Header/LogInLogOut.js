@@ -56,9 +56,6 @@ class LogInLogOut extends Component {
          .catch(err => console.log(err));
    }
    render() {
-
-console.log(this.props.history)
-
       return (
          <div>
             {
@@ -105,7 +102,6 @@ const mapStateToProps = reduxState => {
    return {
       isLoggedIn: user.isLoggedIn,
       userFirstName: user.firstName
-      
    };
 };
 

@@ -4,6 +4,7 @@
       "firstname",
       "lastname",
       "missionstatement",
+      "productinfo",
       "signin",
       "signout",
       "userpreferences"

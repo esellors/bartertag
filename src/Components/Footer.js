@@ -10,6 +10,7 @@ export default function Footer() {
             <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
             <li>Magna aliqua ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</li>
             <li>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+            <li><Link>Report User</Link></li>
          </ul>
          <ul>
             <li><Link to='/donate'>Donate</Link></li>

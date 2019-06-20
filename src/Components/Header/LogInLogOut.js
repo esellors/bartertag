@@ -21,13 +21,14 @@ class LogInLogOut extends Component {
       Axios.get('/api/user')
          .then(res => {
             if (res.status === 204) {
+               console.log(res.status)
+               this.props.history.push('/')
                console.log('No active user session');
             } else if (res.status === 200) {
                this.props.logInUser(res.data)
-               this.setState({ toLandingPage: true });
+               this.props.history.push('/categories')
             }
          })
-         .then(() => this.props.history.push('/'))
          .catch(err => console.log(err));     
    }
    handleInputChange(e) {
@@ -40,7 +41,7 @@ class LogInLogOut extends Component {
 
       Axios.post('/auth/user/login', {username, password})
          .then(res => this.props.logInUser(res.data) )
-         .then(() => this.props.history.push('/'))
+         .then(() => this.props.history.push('/categories'))
          .catch(err => console.log(err));
    }
    handleLogOut() {

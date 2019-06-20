@@ -5,7 +5,7 @@ export default function Dashboard() {
    return (
       <div>
          <Link to='/'>Home</Link>
-         <Link to='/register'>REGISTER FOR FREE!</Link>
+         <Link to='/register'>Register for Free!</Link>
       </div>
    );
 }

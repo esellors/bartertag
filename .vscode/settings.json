@@ -1,10 +1,15 @@
 {
    "cSpell.words": [
+      "accesskeyid",
+      "aws",
       "barterloo",
       "firstname",
       "lastname",
+      "mimetype",
       "missionstatement",
+      "originalname",
       "productinfo",
+      "secretaccesskey",
       "signin",
       "signout",
       "userpreferences"

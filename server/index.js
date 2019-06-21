@@ -4,12 +4,13 @@ const massive = require('massive');
 const session = require('express-session');
 const authController = require('./controllers/authController');
 const userController = require('./controllers/userController');
+const imgRoutes = require('./routes/img-routes');
 const app = express();
 
 const {SERVER_PORT, SESSION_SECRET, DATABASE_STRING} = process.env;
 
 app.use((req, res, next) => {
-   console.log('============================== server hit =========');
+   console.log('================ server hit ================');
    next();
 });
 
@@ -29,20 +30,13 @@ massive(DATABASE_STRING).then(db => {
    console.log('Database linked');
 });
 
+app.get('/api/user', userController.sendUserSession);
+
 app.post('/auth/user/register', authController.registerUser);
 app.post('/auth/user/login', authController.loginUser);
 app.post('/auth/user/logout', authController.logoutUser);
 
-app.get('/api/user', userController.sendUserSession);
-
-// app.get('/api/location', async (req, res) => {
-//    const {city, state} = req.body;
-//    const db = req.app.get('db');
-
-//    const location = await db.check_location(city, state);
-
-//    res.status(200).json(location);
-// })
+app.use('/api/images', imgRoutes);
 
 
 

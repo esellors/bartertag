@@ -19,6 +19,8 @@ class ProductInfo extends Component {
    render() {
       return (
          <div>
+            <button onClick={this.props.history.goBack}>Back</button>
+
             {OwnerSummary}
 
             <h1>ProductInfo</h1>

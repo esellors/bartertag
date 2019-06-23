@@ -18,7 +18,7 @@ class LogInLogOut extends Component {
       this.handleLogOut = this.handleLogOut.bind(this);
    }
    componentDidMount() {
-      Axios.get('/api/user')
+      Axios.get('/auth/user/session')
          .then(res => {
             if (res.status === 204) {
                console.log(res.status)
@@ -38,6 +38,10 @@ class LogInLogOut extends Component {
    handleLogIn(e) {
       e.preventDefault();
       const {username, password} = this.state;
+
+      if (username.length === 0 || password.length === 0) {
+         return alert('Username and/or Password is missing');
+      }
 
       Axios.post('/auth/user/login', {username, password})
          .then(res => this.props.logInUser(res.data) )
@@ -93,10 +97,9 @@ class LogInLogOut extends Component {
 }
 
 const mapStateToProps = reduxState => {
-   const {user} = reduxState;
    return {
-      isLoggedIn: user.isLoggedIn,
-      userFirstName: user.firstName
+      isLoggedIn: reduxState.user.isLoggedIn,
+      userFirstName: reduxState.user.firstName
    };
 };
 

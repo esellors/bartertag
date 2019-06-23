@@ -7,20 +7,17 @@ aws.config.update({
    secretAccessKey: AWS_SECRETACCESSKEY,
    accessKeyId: AWS_ACCESSKEYID,
    region: AWS_REGION
-})
+});
 
 const s3 = new aws.S3();
 
-const deleteImg = function(req, res) {
+const imgDelete = function(req, res) {
    
-   console.log(req.body)
    let deleteItems = [];
 
 	req.body.forEach(function(image) {
 		deleteItems.push({ Key: image.key });
    });
-   
-   console.log(deleteItems)
 
    var params = {
       Bucket: AWS_BUCKET, 
@@ -31,15 +28,19 @@ const deleteImg = function(req, res) {
    };
 
    s3.deleteObjects(params, function(err, data) {
-      if (err) console.log(err)     
-      else console.log("Successfully deleted myBucket/myKey");   
+      if (err) {
+         console.log(err)
+         return res.status(400).json(err)
+      } else {
+         console.log('Successfully deleted'); 
+         console.log(data.Deleted)
+         
+         return res.status(200).json({
+            message: 'Images deleted',
+            items: deleteItems
+         });
+      };
    });
+}
 
-   res.json({
-      message: 'Images deleted',
-      items: deleteItems
-   });
-
-};
-
-module.exports = deleteImg;
+module.exports = imgDelete;

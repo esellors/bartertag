@@ -2,9 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const massive = require('massive');
 const session = require('express-session');
-const authController = require('./controllers/authController');
-const userController = require('./controllers/userController');
-const imgRoutes = require('./routes/img-routes');
+const authRoutes = require('./routes/auth');
+const inventoryRoutes = require('./routes/inventory');
 const app = express();
 
 const {SERVER_PORT, SESSION_SECRET, DATABASE_STRING} = process.env;
@@ -30,14 +29,7 @@ massive(DATABASE_STRING).then(db => {
    console.log('Database linked');
 });
 
-app.get('/api/user', userController.sendUserSession);
-
-app.post('/auth/user/register', authController.registerUser);
-app.post('/auth/user/login', authController.loginUser);
-app.post('/auth/user/logout', authController.logoutUser);
-
-app.use('/api/images', imgRoutes);
-
-
+app.use('/auth', authRoutes);
+app.use('/api/inventory', inventoryRoutes);
 
 app.listen(SERVER_PORT, () => console.log(`Server listening on ${SERVER_PORT}`));

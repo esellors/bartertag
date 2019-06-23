@@ -80,6 +80,7 @@ class Register extends Component {
                <label htmlFor='register-email'>email</label>
                <input 
                   name='email' 
+                  type='email'
                   id='register-email'
                   value={this.state.email}
                   onChange={this.handleInputChange}

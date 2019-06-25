@@ -3,6 +3,7 @@ const express = require('express');
 const massive = require('massive');
 const session = require('express-session');
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
 const inventoryRoutes = require('./routes/inventory');
 const app = express();
 
@@ -30,6 +31,7 @@ massive(DATABASE_STRING).then(db => {
 });
 
 app.use('/auth', authRoutes);
+app.use('/api/user', userRoutes);
 app.use('/api/inventory', inventoryRoutes);
 
 app.listen(SERVER_PORT, () => console.log(`Server listening on ${SERVER_PORT}`));

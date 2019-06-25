@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getUserSession} from '../../redux/reducers/userReducer';
-import {logInUser} from '../../redux/reducers/userReducer';
-import {logOutUser} from '../../redux/reducers/userReducer';
+import {logInUser} from '../../../redux/reducers/userReducer';
+import {logOutUser} from '../../../redux/reducers/userReducer';
 import Axios from 'axios';
 import {withRouter} from 'react-router';
 
@@ -11,14 +10,14 @@ class LogInLogOut extends Component {
       super(props);
       this.state = {
          username: 'test',
-         password: 'test'
+         password: 'testtest'
       };
       this.handleInputChange = this.handleInputChange.bind(this);
       this.handleLogIn = this.handleLogIn.bind(this);
       this.handleLogOut = this.handleLogOut.bind(this);
    }
    componentDidMount() {
-      Axios.get('/auth/user/session')
+      Axios.get('/auth/getsession')
          .then(res => {
             if (res.status === 204) {
                console.log(res.status)
@@ -43,13 +42,16 @@ class LogInLogOut extends Component {
          return alert('Username and/or Password is missing');
       }
 
-      Axios.post('/auth/user/login', {username, password})
+      Axios.post('/auth/login', {username, password})
          .then(res => this.props.logInUser(res.data) )
          .then(() => this.props.history.push('/categories'))
-         .catch(err => console.log(err));
+         .catch(err => {
+            console.log(err.request);
+            alert(err.request.responseText);
+         });
    }
    handleLogOut() {
-      Axios.post('/auth/user/logout')
+      Axios.post('/auth/logout')
          .then(() => this.props.logOutUser() )
          .then(() => this.props.history.push('/'))
          .catch(err => console.log(err));
@@ -105,7 +107,6 @@ const mapStateToProps = reduxState => {
 
 export default withRouter(connect(mapStateToProps, 
    {
-      getUserSession,
       logInUser,
       logOutUser
    }

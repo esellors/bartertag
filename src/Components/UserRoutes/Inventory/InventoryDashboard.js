@@ -6,7 +6,7 @@ function Inventory(props) {
       <div>
          <h1>Inventory Dashboard</h1>
          <Link to='/inventory'>View</Link>
-         <Link to='/inventory/add'>Add</Link>
+         <Link to='/inventory/update'>Update</Link>
          {props.children}
       </div>
    );

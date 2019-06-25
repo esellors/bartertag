@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Switch} from 'react-router-dom';
 import {commonRoutes} from '../CommonRoutes/commonRoutes';
 import Landing from './Landing';
-import Register from './Register';
+import Register from '../CommonRoutes/RegisterUpdateUser';
 
 const commonRoutesMapped = commonRoutes.map(({path, component}, i) => {
    return (

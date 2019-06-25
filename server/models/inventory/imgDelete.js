@@ -11,12 +11,12 @@ aws.config.update({
 
 const s3 = new aws.S3();
 
-const imgDelete = function(req, res) {
-   
+const imgDelete = function(req, res, next) {
+console.log(req.body)
    let deleteItems = [];
 
-	req.body.forEach(function(image) {
-		deleteItems.push({ Key: image.key });
+	req.body.key.forEach(function(image) { 
+      deleteItems.push({ Key: image.key });
    });
 
    var params = {
@@ -32,11 +32,11 @@ const imgDelete = function(req, res) {
          console.log(err)
          return res.status(400).json(err)
       } else {
-         console.log('Successfully deleted'); 
+         console.log('Successfully Deleted Image'); 
          console.log(data.Deleted)
          
          return res.status(200).json({
-            message: 'Images deleted',
+            message: 'Successfully Deleted',
             items: deleteItems
          });
       };

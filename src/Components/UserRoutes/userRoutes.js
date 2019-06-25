@@ -11,8 +11,8 @@ import OpenOffers from './Offers/OpenOffers';
 import ClosedOffers from './Offers/ClosedOffers';
 import InventoryDashboard from './Inventory/InventoryDashboard';
 import ViewInventory from './Inventory/ViewInventory';
-import AddInventory from './Inventory/AddInventory';
-import UserPreferences from './UserPreferences';
+import UpdateInventory from './Inventory/UpdateInventory';
+import Settings from '../CommonRoutes/RegisterUpdateUser';
 
 const commonRoutesMapped = commonRoutes.map(({path, component}, i) => {
    return (
@@ -50,13 +50,13 @@ export default (
          <>
             <InventoryDashboard />
             <Switch>
-               <Route component={AddInventory} path='/inventory/add' />
+               <Route component={UpdateInventory} path='/inventory/update/:itemId?' />
                <Route component={ViewInventory} />
             </Switch>
          </>
       )} />
       
-      <Route component={UserPreferences} path='/userpreferences' />
+      <Route component={Settings} path='/settings' />
 
       <Route render={() => <h1>404: Not Found</h1>} />
    </Switch>

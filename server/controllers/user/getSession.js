@@ -1,4 +1,4 @@
-const session = function (req, res) {
+const getSession = function (req, res) {
    if (req.session.user) {
       res.status(200).json(req.session.user);
    } else {
@@ -6,4 +6,4 @@ const session = function (req, res) {
    };
 };
 
-module.exports = session;
+module.exports = getSession;

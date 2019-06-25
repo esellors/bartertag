@@ -6,16 +6,18 @@ const initialState = {
    lastName: '',
    username: '',
    email: '',
+   city: '',
+   state: '',
    joinDate: ''
 };
 
-const GET_USER_SESSION = 'GET_USER_SESSION';
+const UPDATE_LOCAL_USER_LOCATION = 'UPDATE_LOCAL_USER_LOCATION';
 const LOG_IN_USER = 'LOG_IN_USER';
 const LOG_OUT_USER = 'LOG_OUT_USER';
 
-export function getUserSession(data) {
+export function updateLocalUserLocation(data) {
    return {
-      type: GET_USER_SESSION,
+      type: UPDATE_LOCAL_USER_LOCATION,
       payload: data
    };
 };
@@ -37,17 +39,11 @@ export default function reducer(state = initialState, action) {
    const {type, payload} = action;
 
    switch(type) {
-      case GET_USER_SESSION:
+      case UPDATE_LOCAL_USER_LOCATION:
          return {
             ...state,
-            isLoggedIn: true,
-            userId: payload.userId,
-            locationId: payload.locationId,
-            firstName: payload.firstName,
-            lastName: payload.lastName,
-            username: payload.username,
-            email: payload.email,
-            joinDate: payload.joinDate
+            city: payload.city,
+            state: payload.state
          };
       case LOG_IN_USER:
          return {

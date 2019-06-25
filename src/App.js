@@ -4,10 +4,10 @@ import './reset.css';
 import './index.css';
 import guestRoutes from './Components/GuestRoutes/guestRoutes';
 import userRoutes from './Components/UserRoutes/userRoutes';
-import Header from './Components/Header/Header';
+import Header from './Components/CommonRoutes/Header/Header';
 import GuestDashboard from './Components/GuestRoutes/GuestDashboard';
 import UserDashboard from './Components/UserRoutes/UserDashboard';
-import Footer from './Components/Footer';
+import Footer from './Components/CommonRoutes/Footer';
 
 function App(props) {
 

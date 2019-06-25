@@ -1,16 +1,19 @@
 import React, {Component} from 'react';
 import Axios from 'axios';
 import {connect} from 'react-redux';
-import FormValidation from '../Validation/FormValidation';
+import {setTargetItem, setAllInvToRefresh} from '../../../redux/reducers/inventoryReducer';
+import inventoryValidation from '../../Validation/UpdateInventory';
+import DisplayValidationErrors from '../../Validation/DisplayErrors';
 
-class AddInventory extends Component {
+class UpdateInventory extends Component {
    constructor(props) {
       super(props);
       this.state = {
+         uneditedItemInfo: {},
          submitDisabled: false,
          item_category: '',
          item_condition: '',
-         item_name: '',
+         item_name: this.props.match.params.item_name || '',
          item_desc: '',
          selectedImg: null,
          selectedImgFileUrl: null,
@@ -21,10 +24,37 @@ class AddInventory extends Component {
       this.imgUploadHandler = this.imgUploadHandler.bind(this);
       this.clearImgHandler = this.clearImgHandler.bind(this);
       this.clearFormHandler = this.clearFormHandler.bind(this);
-      this.formValidation = this.formValidation.bind(this);
+      this.submitItemHandler = this.submitItemHandler.bind(this);
+      this.setTargetItemValues = this.setTargetItemValues.bind(this);
+   }
+   componentDidMount() {
+      if (this.props.match.params.itemId) { // if Edit mode
+         this.setTargetItemValues();
+      }
+   }
+   setTargetItemValues(e) {
+      if (e) e.preventDefault();
+
+      const setTargetItem = async function(itemId) {
+         await this.props.setTargetItem(itemId)
+
+         if (this.props.targetItem) {
+            const {item_category, item_condition, item_desc, item_name, img_aws_url, img_aws_key} = this.props.targetItem; 
+   
+            this.setState({
+               uneditedItemInfo: {item_category, item_condition, item_desc, item_name, img_aws_key, selectedImgFileUrl: img_aws_url},
+               item_category, item_condition, item_desc, item_name,
+               selectedImgFileUrl: img_aws_url,
+            })
+         }
+      }
+
+      setTargetItem.call(this, this.props.match.params.itemId)
+
    }
    inputChangeHandler(e) {
       if (e.target.name === 'img_btn') {
+         console.log(e.target.files)
          this.setState({ 
             selectedImg: e.target.files[0],
             selectedImgFileUrl: URL.createObjectURL(e.target.files[0])
@@ -56,56 +86,55 @@ class AddInventory extends Component {
          };
       });
    }
-   formValidation(e) {
+   submitItemHandler(e) {
       e.preventDefault();
+      console.log(this.state.uneditedItemInfo.img_aws_key)
+      const button = e.target.name;
 
-      this.setState({ 
-         submitDisabled: true,
-         formValidationErrors: []
-      });
+      this.setState({ submitDisabled: true }); // Disable double clicking
 
-      const state = {...this.state};
-      const errorsFound = [];
+      // begin inputs validation
+      const errorsFound = inventoryValidation({...this.state});
 
-      for (let key in state) {
-         switch(key) {
-            case 'item_category':
-               if (!state[key]) errorsFound.push('No category chosen');
-               break;
-            case 'item_condition':
-               if (!state[key]) errorsFound.push('No item condition chosen');
-               break;
-            case 'item_name':
-               if (!state[key]) errorsFound.push('No item name entered');
-               break;
-            case 'item_desc':
-               if (!state[key]) errorsFound.push('No description entered');
-               break;
-            case 'selectedImg':
-               if (!state[key]) {
-                  errorsFound.push('No image chosen');
-               } else if (
-               state[key].type !== 'image/jpg' &&
-               state[key].type !== 'image/jpeg' &&
-               state[key].type !== 'image/png') {
-                  errorsFound.push('Image chosen not of type jpg, jpeg, or png');
-               } else if (state[key].size > 4000000) {
-                  errorsFound.push('Image larger than 4 mb limit')
-               }
-               break;
-            default: break;
-         }
-      };
       if (errorsFound.length > 0) {
-         this.setState({ 
+         return this.setState({ 
             submitDisabled: false,
-            formValidationErrors: errorsFound
+            formValidationErrors: errorsFound 
          });
-      } else {
-         this.imgUploadHandler();
       };
+      // end inputs validation
+
+      // Begin if Edit mode
+      if (button === 'saveChangesBtn') { 
+         const {item_category, item_condition, item_desc, item_name} = this.state.uneditedItemInfo;
+
+         const prevItemDetails = {item_category, item_condition, item_desc, item_name};
+         const newerItemDetails = {
+            item_category: this.state.item_category, 
+            item_condition: this.state.item_condition, 
+            item_desc: this.state.item_desc, 
+            item_name: this.state.item_name
+         }
+      
+         if (!this.state.selectedImg && JSON.stringify(prevItemDetails) === JSON.stringify(newerItemDetails)) { // Disable submit with no changes
+            return this.setState({
+               submitDisabled: false,
+               formValidationErrors: ['No changes have been made']
+            });
+         }
+         return this.imgUploadHandler(true);
+      } 
+      // End if Edit mode
+
+      this.imgUploadHandler(false);
+
    }
-   imgUploadHandler() {
+   imgUploadHandler(editMode) {
+
+      if (editMode && !this.state.selectedImg) { // if Edit mode w/ no pic change
+         return this.detailsUploadHandler(null, null, true);
+      }
+
       const data = new FormData();
       data.append('image', this.state.selectedImg, this.state.selectedImg.name);
 
@@ -119,38 +148,93 @@ class AddInventory extends Component {
          })
          .then(res => {
             const {img_aws_key, img_aws_url} = res.data;
-            this.submitItemHandler(img_aws_key, img_aws_url);
+
+            // if Edit mode w/ new pic then delete old pic
+            if (editMode) { 
+               const {img_aws_key: key} = this.state.uneditedItemInfo;
+
+               // Delete old Photo
+               Axios
+                  .delete('/api/inventory/img/delete', { data: {key: [{key}]} })
+                  .catch(err => {
+                     console.log(err.request);
+                     this.clearImgHandler();
+                     this.setState({ 
+                        formValidationErrors: err.request.responseText,
+                        submitDisabled: false 
+                     });
+                  });
+               return this.detailsUploadHandler(img_aws_key, img_aws_url, true);
+            }
+            // end old pic delete
+
+            this.detailsUploadHandler(img_aws_key, img_aws_url, false);
          })
          .catch(err => {
             console.log(err.request);
-            alert(err.request.responseText);
             this.clearImgHandler();
-            this.setState({ submitDisabled: false });
+            this.setState({ 
+               formValidationErrors: err.request.responseText,
+               submitDisabled: false 
             });
+         });
    }
-   submitItemHandler(img_aws_key, img_aws_url) {
+   detailsUploadHandler(img_aws_key, img_aws_url, editMode) {
       const {item_category, item_condition, item_name, item_desc} = this.state;
       const {user_id} = this.props;
 
-      const newItem = {user_id, item_category, item_condition,item_name, item_desc, img_aws_key, img_aws_url};
+      const item = {user_id, item_category, item_condition, item_name, item_desc, 
+         user_item_id: parseInt(this.props.match.params.itemId) || null,
+         img_aws_key: img_aws_key || null, 
+         img_aws_url: img_aws_url || null
+      };
 
-      Axios
-         .post('/api/inventory/details/add', newItem)
-         .then(() => {
-            this.clearFormHandler();
-            this.setState({ submitDisabled: false });
-            alert('Item added!');
-         })
-         .catch(err => {
-            console.log(err);
-            this.setState({ submitDisabled: false });
-         });
+      // if Edit mode, change existing item details in db
+      if (editMode) { 
+         Axios
+            .put('/api/inventory/details/update', item)
+            .then(() => {
+               // this.clearFormHandler();
+               // this.setState({ submitDisabled: false });
+               alert('Item Updated');
+               this.props.setAllInvToRefresh(true);
+               this.props.history.push('/inventory');
+            })
+            .catch(err => {
+               console.log(err);
+               this.setState({ 
+                  formValidationErrors: err.request.responseText,
+                  submitDisabled: false 
+               });
+            });
+      } else { //if not Edit mode, add new item to db
+         Axios
+            .post('/api/inventory/details/add', item)
+            .then(() => {
+               this.clearFormHandler();
+               this.setState({ submitDisabled: false });
+               this.props.setAllInvToRefresh(true);
+               alert('Item Added');
+            })
+            .catch(err => {
+               console.log(err.request);
+               this.setState({ 
+                  formValidationErrors: err.request.responseText,
+                  submitDisabled: false 
+               });
+            });
+      }
    }
    render() {
       return (
          <form>
-            <h1>Add to Your Inventory</h1>
-
+            {
+               this.props.match.params.itemId
+               ?
+                  <h1>Update Item</h1>
+               :
+                  <h1>Add Item</h1>
+            }
             <div>
                <label htmlFor='item_category'>Category</label>
                <select 
@@ -278,14 +362,25 @@ class AddInventory extends Component {
                   {
                      this.state.formValidationErrors.length > 0
                      ?
-                        <FormValidation errors={this.state.formValidationErrors} 
+                        <DisplayValidationErrors errors={this.state.formValidationErrors} 
                      />
                      :  null
                   }
                </span>
                <span>
-                  <button onClick={this.clearFormHandler}>Clear All</button>
-                  <button disabled={this.state.submitDisabled} onClick={this.formValidation}>Add Item</button>
+                  {
+                     this.props.match.params.itemId // if true, then edit mode
+                     ?
+                        <>
+                           <button onClick={this.setTargetItemValues}>Clear Changes</button>
+                           <button name='saveChangesBtn' disabled={this.state.submitDisabled} onClick={this.submitItemHandler}>Save</button>
+                        </>
+                     :
+                        <>
+                           <button onClick={this.clearFormHandler}>Clear All</button>
+                           <button disabled={this.state.submitDisabled} onClick={this.submitItemHandler}>Add Item</button>
+                        </>
+                  }
                </span>
             </div>
          </form>
@@ -295,8 +390,16 @@ class AddInventory extends Component {
 
 const mapStateToProps = reduxState => {
    return {
-      user_id: reduxState.user.userId
+      user_id: reduxState.user.userId,
+      targetItem: reduxState.inventory.targetItem
    }
 }
 
-export default connect(mapStateToProps)(AddInventory)
+export default connect(mapStateToProps,
+   {
+      setAllInvToRefresh,
+      setTargetItem
+   }
+)(UpdateInventory)
+
+

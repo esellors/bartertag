@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Axios from 'axios';
 import {connect} from 'react-redux';
 import {setTargetItem, setAllInvToRefresh} from '../../../redux/reducers/inventoryReducer';
+import {categories} from '../../Data/categories';
 import inventoryValidation from '../../Validation/UpdateInventory';
 import DisplayValidationErrors from '../../Validation/DisplayErrors';
 
@@ -226,10 +227,15 @@ class UpdateInventory extends Component {
       }
    }
    render() {
+
+      const categoriesMapped = categories.map((cat, i) => {
+         return <option value={cat.value} key={i}>{cat.name}</option>
+      })
+
       return (
          <form>
             {
-               this.props.match.params.itemId
+               this.props.match.params
                ?
                   <h1>Update Item</h1>
                :
@@ -244,21 +250,7 @@ class UpdateInventory extends Component {
                   onChange={this.inputChangeHandler}
                >
                   <option value='' disabled>Choose:</option>
-                  <option value='auto_accessories'>Auto Accessories</option>
-                  <option value='baby'>Baby</option>
-                  <option value='beauty'>Beauty</option>
-                  <option value='clothing'>Clothing</option>
-                  <option value='computer'>Computer</option>
-                  <option value='electronics'>Electronics</option>
-                  <option value='fitness'>Fitness</option>
-                  <option value='furniture'>Furniture</option>
-                  <option value='home_accessories'>Home Accessories</option>
-                  <option value='jewelry'>Jewelry</option>
-                  <option value='office'>Office</option>
-                  <option value='outdoor'>Outdoor</option>
-                  <option value='tools'>Tools</option>
-                  <option value='toys'>Toys</option>
-                  <option value='other'>-Other-</option>
+                  {categoriesMapped}
                </select>
             </div>
          

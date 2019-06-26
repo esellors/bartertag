@@ -5,7 +5,7 @@ import {withRouter} from 'react-router';
 import {logInUser} from '../../redux/reducers/userReducer';
 import {logOutUser} from '../../redux/reducers/userReducer';
 import {updateLocalUserLocation} from '../../redux/reducers/userReducer';
-import SelectStateDropdown from '../FormData/StatesList';
+import SelectStateDropdown from '../Data/states';
 import registerUpdateValidation from '../Validation/RegisterUpdateUser';
 import DisplayValidationErrors from '../Validation/DisplayErrors';
 

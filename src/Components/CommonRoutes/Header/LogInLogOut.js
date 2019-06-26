@@ -25,7 +25,7 @@ class LogInLogOut extends Component {
                console.log('No active user session');
             } else if (res.status === 200) {
                this.props.logInUser(res.data)
-               this.props.history.push('/categories')
+               this.props.history.push('/browse')
             }
          })
          .catch(err => console.log(err));     
@@ -44,7 +44,7 @@ class LogInLogOut extends Component {
 
       Axios.post('/auth/login', {username, password})
          .then(res => this.props.logInUser(res.data) )
-         .then(() => this.props.history.push('/categories'))
+         .then(() => this.props.history.push('/browse'))
          .catch(err => {
             console.log(err.request);
             alert(err.request.responseText);

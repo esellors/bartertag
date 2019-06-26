@@ -1,11 +1,10 @@
 import React from 'react';
 import {Route, Switch} from 'react-router-dom';
 import {commonRoutes} from '../CommonRoutes/commonRoutes';
-import Categories from './Categories/Categories';
-import ProductDashboard from './Categories/Products/Product/ProductDashboard';
-import Products from './Categories/Products/Products';
-import ProductInfo from './Categories/Products/Product/ProductInfo'
-import OwnerDetails from './Categories/Products/Product/OwnerInfo/OwnerDetails';
+import Browse from './Browse/Browse';
+import Products from './Browse/Products/Products';
+import Product from './Browse/Products/Product/Product';
+import OwnerDetails from './OwnerInfo/OwnerDetails';
 import OffersDashboard from './Offers/OffersDashboard';
 import OpenOffers from './Offers/OpenOffers';
 import ClosedOffers from './Offers/ClosedOffers';
@@ -24,17 +23,29 @@ export default (
    <Switch>
       {commonRoutesMapped}
       
-      <Route path='/categories/products/product' render={() => (
+      {/* <Route path='/browse/products/product' render={() => (
          <>
             <ProductDashboard />
             <Switch>
-               <Route component={OwnerDetails} path='/categories/products/product/ownerdetails' />
+               <Route component={OwnerDetails} path='/browse/products/product/ownerdetails' />
                <Route component={ProductInfo} />
             </Switch>
          </>
       )} />
-      <Route component={Products} path='/categories/products' />
-      <Route component={Categories} path='/categories' />
+      <Route component={Products} path='/browse/products' />
+      <Route component={Browse} path='/browse/:category?' /> */}
+      
+      <Route path='/browse' render={() => (
+         <Switch>
+            <Route component={Product} path='/browse/:category/:productId' />
+            <Route component={Products} path='/browse/:category' />
+            <Route component={Browse} />
+         </Switch>
+      )} />
+      
+
+
+
 
       <Route path='/offers' render={() => (
          <>

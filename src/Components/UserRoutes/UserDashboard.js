@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 export default function Dashboard() {
    return (
       <ul>
-         <li><Link to='/categories'>Categories</Link></li>
+         <li><Link to='/browse'>Browse</Link></li>
          <li><Link to='/offers'>Offers</Link></li>
          <li><Link to='/inventory'>Inventory</Link></li>
          <li><Link to='/settings'>Settings</Link></li>

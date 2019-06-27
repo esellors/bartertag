@@ -14,7 +14,7 @@ class RegisterUpdateUser extends Component {
       super(props);
       this.state = {
          uneditedUserInfo: {},
-         editFieldsDisabled: this.props.user.isLoggedIn,
+         editFieldsDisabled: false,
          userEditToggle: false,
          submitBtnDisabled: false,
          firstName: '',
@@ -33,7 +33,8 @@ class RegisterUpdateUser extends Component {
       this.populateUserInfo = this.populateUserInfo.bind(this);
    }
    componentDidMount() {
-      if (this.props.user.isLoggedIn) {
+      if (this.props.isLoggedIn) {
+         this.setState({ editFieldsDisabled: true })
          this.populateUserInfo();
       };
    }
@@ -99,7 +100,11 @@ class RegisterUpdateUser extends Component {
             break;
          case 'cancelChangesBtn':
             this.populateUserInfo();
-            this.setState({ formValidationErrors: [] });
+            this.setState({ 
+               editFieldsDisabled: true,
+               userEditToggle: false,
+               formValidationErrors: [] 
+            });
             break;
          default: break;
       };
@@ -120,7 +125,7 @@ class RegisterUpdateUser extends Component {
    handleRegisterUpdate(e) { 
       if (e) e.preventDefault();
 
-      if (this.props.user.isLoggedIn === true) { // Block existing user from saving unchanged info
+      if (this.props.isLoggedIn === true) { // Block existing user from saving unchanged info
          const uneditedUserInfo = {...this.state.uneditedUserInfo};
          const newerUserInfo = {
             firstName: this.state.firstName,
@@ -140,7 +145,7 @@ class RegisterUpdateUser extends Component {
 
       this.setState({ submitBtnDisabled: true });
 
-      const errorsFound = registerUpdateValidation({...this.state}, this.props.user.isLoggedIn);
+      const errorsFound = registerUpdateValidation({...this.state}, this.props.isLoggedIn);
 
       if (errorsFound.length > 0) {
          return this.setState({ 
@@ -152,7 +157,7 @@ class RegisterUpdateUser extends Component {
       const {firstName, lastName, username, email, city, state, password} = this.state;
       const newUserInfo = {firstName, lastName, username, email, city, state, password};
    
-      if (!this.props.user.isLoggedIn) { // register new user
+      if (!this.props.isLoggedIn) { // register new user
          Axios
             .post('/auth/register', newUserInfo)
             .then(res => this.props.logInUser(res.data) )
@@ -184,7 +189,7 @@ class RegisterUpdateUser extends Component {
       return (
          <div>
             {
-               this.props.user.isLoggedIn
+               this.props.isLoggedIn
                ?
                   <h1>Update Information</h1>
                :
@@ -247,7 +252,7 @@ class RegisterUpdateUser extends Component {
                <label htmlFor='register-password'>Password</label>
                <input 
                   disabled={this.state.editFieldsDisabled}
-                  placeholder={this.props.user.isLoggedIn ? 'Blank to keep current PW' : '8 characters minimum'}
+                  placeholder={this.props.isLoggedIn ? 'Blank to keep current PW' : '8 characters minimum'}
                   name='password' 
                   id='register-password'
                   maxLength='40'
@@ -262,7 +267,7 @@ class RegisterUpdateUser extends Component {
                   :  null
                }
                {
-                  this.props.user.isLoggedIn 
+                  this.props.isLoggedIn 
                   ?
                      this.state.userEditToggle
                      ?
@@ -292,7 +297,7 @@ class RegisterUpdateUser extends Component {
 
 const mapStateToProps = reduxState => {
    return {
-      user: reduxState.user
+      isLoggedIn: reduxState.user.isLoggedIn
    };
 };
 

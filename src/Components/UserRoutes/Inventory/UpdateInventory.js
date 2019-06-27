@@ -322,7 +322,7 @@ class UpdateInventory extends Component {
                   id='item_desc' 
                   value={this.state.item_desc} 
                   onChange={this.inputChangeHandler}
-                  maxLength='2500'
+                  maxLength='250'
                   />
             </div>
 

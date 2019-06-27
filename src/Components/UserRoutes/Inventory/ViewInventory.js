@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import Axios from 'axios';
 import {connect} from 'react-redux';
 import {getAllInventory, setAllInvToRefresh} from '../../../redux/reducers/inventoryReducer';
+import {addBarteringItem, removeBarteringItem, clearBarteringItems} from '../../../redux/reducers/offersReducer';
 
 class ViewInventory extends Component {
    constructor(props) {
@@ -11,11 +12,15 @@ class ViewInventory extends Component {
          inputKey: Date.now()
       }
       this.deleteInventoryItem = this.deleteInventoryItem.bind(this);
+      this.checkBoxHandler = this.checkBoxHandler.bind(this);
    }
    componentDidMount() {
       if (this.props.allInventory.length === 0 || this.props.needsRefresh) {
          this.refreshInventory();
       }
+   }
+   componentWillUnmount() {
+      if (this.props.barterMode) this.props.clearBarteringItems();
    }
    refreshInventory() {
       this.props.setAllInvToRefresh(false);
@@ -47,8 +52,22 @@ class ViewInventory extends Component {
 
       this.refreshInventory();
    }
+   checkBoxHandler(e) {
+      const itemId = parseInt(e.target.name)
+      const {toBarterItems, addBarteringItem, removeBarteringItem} = this.props;
+      const checked = toBarterItems.includes(itemId);
+
+      if (checked) {
+         removeBarteringItem(itemId);
+      } else if (toBarterItems.length < 3) {
+         addBarteringItem(itemId);
+      } else {
+         alert('Maximum of 3 items allowed')
+      };
+
+   }
    render() {
-      const {allInventory} = this.props;
+      const {allInventory, barterMode, toBarterItems} = this.props;
 
       const mappedInventory = allInventory.map((item, i) => {
          let {user_item_id, time_added, item_name, item_condition, item_desc, img_aws_url, img_aws_key} = item;
@@ -57,22 +76,48 @@ class ViewInventory extends Component {
 
          return (
             <div key={user_item_id}>
-               <h2>DATE ADDED</h2>
-               <p>{dateString}</p>
+
+               {barterMode ? null : (
+                  <>
+                     <h2>DATE ADDED</h2>
+                     <p>{dateString}</p>
+                  </>
+               )}
+               
                <h2>TITLE</h2>
                <p>{item_name}</p>
                <img src={img_aws_url} alt='Inventory Item' />
-               <h2>CONDITION</h2>
-               <p>{item_condition}</p>
-               <h2>DESCRIPTION</h2>
-               <p>{item_desc}</p>
-               <Link from='/inventory' to={`/inventory/update/${user_item_id}`}>
-                  <button>Edit</button>
-               </Link>
-               <button 
-                  name={`${user_item_id}*${img_aws_key}`}
-                  onClick={this.deleteInventoryItem}
-               >Delete</button>
+
+               {barterMode ? null : (
+                  <>
+                     <h2>CONDITION</h2>
+                     <p>{item_condition}</p>
+                     <h2>DESCRIPTION</h2>
+                     <p>{item_desc}</p>
+                  </>
+               )}
+
+               {barterMode ? (
+                  <>
+                     <p>Offer this item:</p>
+                     <input 
+                        type='checkbox'
+                        name={user_item_id}
+                        onChange={this.checkBoxHandler}
+                        checked={toBarterItems.includes(user_item_id)}
+                     />
+                  </>
+               ) : (
+                  <>
+                     <Link from='/inventory' to={`/inventory/update/${user_item_id}`}>
+                        <button>Edit</button>
+                     </Link>
+                     <button 
+                        name={`${user_item_id}*${img_aws_key}`}
+                        onClick={this.deleteInventoryItem}
+                     >Delete</button>
+                  </>
+               )}
             </div>
          );
       })
@@ -90,13 +135,18 @@ const mapStateToProps = reduxState => {
    return {
       userId: reduxState.user.userId,
       allInventory: reduxState.inventory.allInventory,
-      needsRefresh: reduxState.inventory.allInvToRefresh
+      needsRefresh: reduxState.inventory.allInvToRefresh,
+      barterMode: reduxState.offers.barterMode,
+      toBarterItems: reduxState.offers.toBarterItems
    }
 }
 
 export default connect(mapStateToProps, 
    {
       setAllInvToRefresh,
-      getAllInventory
+      getAllInventory,
+      addBarteringItem,
+      removeBarteringItem,
+      clearBarteringItems
    }
 )(ViewInventory);

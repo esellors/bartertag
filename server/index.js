@@ -6,6 +6,7 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const inventoryRoutes = require('./routes/inventory');
 const productsRoutes = require('./routes/products');
+const offersRoutes = require('./routes/offers');
 const app = express();
 
 const {SERVER_PORT, SESSION_SECRET, DATABASE_STRING} = process.env;
@@ -35,5 +36,6 @@ app.use('/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/products', productsRoutes);
+app.use('/api/offers', offersRoutes);
 
 app.listen(SERVER_PORT, () => console.log(`Server listening on ${SERVER_PORT}`));

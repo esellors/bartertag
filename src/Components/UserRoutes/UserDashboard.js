@@ -7,7 +7,7 @@ export default function Dashboard() {
          <li><Link to='/browse'>Browse</Link></li>
          <li><Link to='/offers'>Offers</Link></li>
          <li><Link to='/inventory'>Inventory</Link></li>
-         <li><Link to='/settings'>Settings</Link></li>
+         <li><Link to='/userpreferences'>Preferences</Link></li>
       </ul>
    );
 }

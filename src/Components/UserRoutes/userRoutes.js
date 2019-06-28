@@ -29,10 +29,6 @@ export default (
             <Route component={Browse} />
          </Switch>
       )} />
-      
-
-
-
 
       <Route path='/offers' render={() => (
          <>

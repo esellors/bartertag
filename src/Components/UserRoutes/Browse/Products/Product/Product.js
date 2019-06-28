@@ -41,7 +41,7 @@ class Product extends Component {
             <button 
                name='toggleBarterOffer'
                onClick={this.componentToggler}
-            >Barter for this!</button>
+            >{toggleBarterOffer ? 'Cancel' : 'Start Barter Tag!'}</button>
             {toggleBarterOffer ? (
                <>
                   <BarterOffer offerStatus='new' />

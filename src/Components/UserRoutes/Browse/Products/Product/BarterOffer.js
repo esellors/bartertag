@@ -1,6 +1,20 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
 import Axios from 'axios';
+
+
+
+
+
+// add barter thing to mapped out open offers w/ ability to close offer
+// map out closed offers
+// notifications
+// user info page and reviews
+
+
+
+
 
 class BarterOffer extends Component {
    constructor(props) {
@@ -20,33 +34,47 @@ class BarterOffer extends Component {
    handleTagButton(e) {
       e.preventDefault();
       const {offerStatus, primaryUserId, secondaryUserId, primaryItemsIds, secondaryItemId} = this.props;
+      let {userMessage, userMessageRemark} = this.state;
 
-      const {userMessage, userMessageRemark} = this.state;
+      if (userMessage === '') userMessage = null;
+      if (userMessageRemark === '') userMessageRemark = null;
+
+      const primaryItem1Id = primaryItemsIds[0] || null;
+      const primaryItem2Id = primaryItemsIds[1] || null;
+      const primaryItem3Id = primaryItemsIds[2] || null;
+
+      console.log(primaryItemsIds)
 
       if (offerStatus === 'new') {
-         if (primaryItemsIds.length === 0) return alert('You must choose which of your items to offer!');
+         if (primaryItem1Id === null) return alert('You must choose which of your items to offer!');
          
          Axios
             .post('/api/offers/create', 
                {
                   offerStatus, 
                   primaryUserId, 
-                  secondaryUserId, 
-                  primaryItemsIds, 
+                  secondaryUserId,
+                  taggedUserId: secondaryUserId,
+                  primaryItem1Id,
+                  primaryItem2Id,
+                  primaryItem3Id,
                   secondaryItemId,
+                  senderUserId: primaryUserId,
+                  messageStatus: 'unread',
                   userMessage,
-                  userMessageRemark
+                  userMessageRemark,
+                  notificationStatus: 'unread'
                })
-            .then(() => alert('Your offer has been sent and the owner has been notified to respond.'))
+            .then(res => {
+               alert(res.data)
+               this.props.history.goBack();
+            })
             .catch(err => {
-               console.log(err.request);
+               console.log(err);
                alert('Something went wrong.');
             })
       }
 
-      // Need to figure out what to send back and when wrt offers and messaging
-      // create endpoints, sql, etc
-      // create alerts -- add who is tagged user in post, etc
 
 
    }
@@ -76,6 +104,7 @@ class BarterOffer extends Component {
                   name='userMessageRemark'
                >
                   <option value='' disabled>Optional Remarks:</option>
+                  <option value=''>None</option>
                   <option value='Tell me more about the specs.'>Tell me more about the specs.</option>
                   <option value='Tell me more about features.'>Tell me more about features.</option>
                   <option value='How do you use the item?'>How do you use the item?</option>
@@ -104,4 +133,4 @@ const mapStateToProps = reduxState => {
    }
 }
 
-export default connect(mapStateToProps)(BarterOffer)
+export default withRouter(connect(mapStateToProps)(BarterOffer))

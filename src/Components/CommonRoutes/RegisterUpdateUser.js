@@ -161,7 +161,7 @@ class RegisterUpdateUser extends Component {
          Axios
             .post('/auth/register', newUserInfo)
             .then(res => this.props.logInUser(res.data) )
-            .then(() => this.props.history.push('/categories'))
+            .then(() => this.props.history.push('/browse'))
             .catch(err => {
                let newErrors = [err.request.responseText];
                this.setState({

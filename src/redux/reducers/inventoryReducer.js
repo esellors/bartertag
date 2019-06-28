@@ -17,6 +17,13 @@ export function getAllInventory(inventory) {
    };
 }
 
+// export function getAllInventory() {
+//    return {
+//       type: GET_ALL_INVENTORY,
+//       payload
+//    }
+// }
+
 export function setTargetItem(itemId) {
    const targetItem = store.getState().inventory.allInventory.find(item => {
       return parseInt(item.user_item_id) === parseInt(itemId);

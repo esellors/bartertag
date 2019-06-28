@@ -69,57 +69,59 @@ class ViewInventory extends Component {
    render() {
       const {allInventory, barterMode, toBarterItems} = this.props;
 
-      const mappedInventory = allInventory.map((item, i) => {
-         let {user_item_id, time_added, item_name, item_condition, item_desc, img_aws_url, img_aws_key} = item;
+      const mappedInventory = allInventory && allInventory.length === 0 
+         ? 'Nothing in your inventory'
+         : allInventory.map((item, i) => {
+            let {user_item_id, time_added, item_name, item_condition, item_desc, img_aws_url, img_aws_key} = item;
 
-         let dateString = new Date(`${time_added}`).toString();
+            let dateString = new Date(`${time_added}`).toString();
 
-         return (
-            <div key={user_item_id}>
+            return (
+               <div key={user_item_id}>
 
-               {barterMode ? null : (
-                  <>
-                     <h2>DATE ADDED</h2>
-                     <p>{dateString}</p>
-                  </>
-               )}
-               
-               <h2>TITLE</h2>
-               <p>{item_name}</p>
-               <img src={img_aws_url} alt='Inventory Item' />
+                  {barterMode ? null : (
+                     <>
+                        <h2>DATE ADDED</h2>
+                        <p>{dateString}</p>
+                     </>
+                  )}
+                  
+                  <h2>TITLE</h2>
+                  <p>{item_name}</p>
+                  <img src={img_aws_url} alt='Inventory Item' />
 
-               {barterMode ? null : (
-                  <>
-                     <h2>CONDITION</h2>
-                     <p>{item_condition}</p>
-                     <h2>DESCRIPTION</h2>
-                     <p>{item_desc}</p>
-                  </>
-               )}
+                  {barterMode ? null : (
+                     <>
+                        <h2>CONDITION</h2>
+                        <p>{item_condition}</p>
+                        <h2>DESCRIPTION</h2>
+                        <p>{item_desc}</p>
+                     </>
+                  )}
 
-               {barterMode ? (
-                  <>
-                     <p>Offer this item:</p>
-                     <input 
-                        type='checkbox'
-                        name={user_item_id}
-                        onChange={this.checkBoxHandler}
-                        checked={toBarterItems.includes(user_item_id)}
-                     />
-                  </>
-               ) : (
-                  <>
-                     <Link from='/inventory' to={`/inventory/update/${user_item_id}`}>
-                        <button>Edit</button>
-                     </Link>
-                     <button 
-                        name={`${user_item_id}*${img_aws_key}`}
-                        onClick={this.deleteInventoryItem}
-                     >Delete</button>
-                  </>
-               )}
-            </div>
-         );
+                  {barterMode ? (
+                     <>
+                        <p>Offer this item:</p>
+                        <input 
+                           type='checkbox'
+                           name={user_item_id}
+                           onChange={this.checkBoxHandler}
+                           checked={toBarterItems.includes(user_item_id)}
+                        />
+                     </>
+                  ) : (
+                     <>
+                        <Link from='/inventory' to={`/inventory/update/${user_item_id}`}>
+                           <button>Edit</button>
+                        </Link>
+                        <button 
+                           name={`${user_item_id}*${img_aws_key}`}
+                           onClick={this.deleteInventoryItem}
+                        >Delete</button>
+                     </>
+                  )}
+               </div>
+            );
       })
 
       return (

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Axios from 'axios';
 import {connect} from 'react-redux';
-import {setTargetItem, setAllInvToRefresh} from '../../../redux/reducers/inventoryReducer';
+import {setTargetItem, updateInventory} from '../../../redux/reducers/inventoryReducer';
 import {categories} from '../../Data/categories';
 import inventoryValidation from '../../Validation/UpdateInventory';
 import DisplayValidationErrors from '../../Validation/DisplayErrors';
@@ -89,7 +89,7 @@ class UpdateInventory extends Component {
    }
    submitItemHandler(e) {
       e.preventDefault();
-      console.log(this.state.uneditedItemInfo.img_aws_key)
+      // console.log(this.state.uneditedItemInfo.img_aws_key)
       const button = e.target.name;
 
       this.setState({ submitDisabled: true }); // Disable double clicking
@@ -182,9 +182,9 @@ class UpdateInventory extends Component {
    }
    detailsUploadHandler(img_aws_key, img_aws_url, editMode) {
       const {item_category, item_condition, item_name, item_desc} = this.state;
-      const {user_id} = this.props;
+      const {userId} = this.props;
 
-      const item = {user_id, item_category, item_condition, item_name, item_desc, 
+      const item = {user_id: userId, item_category, item_condition, item_name, item_desc, 
          user_item_id: parseInt(this.props.match.params.itemId) || null,
          img_aws_key: img_aws_key || null, 
          img_aws_url: img_aws_url || null
@@ -198,7 +198,7 @@ class UpdateInventory extends Component {
                // this.clearFormHandler();
                // this.setState({ submitDisabled: false });
                alert('Item Updated');
-               this.props.setAllInvToRefresh(true);
+               this.props.updateInventory(userId);
                this.props.history.push('/inventory');
             })
             .catch(err => {
@@ -214,7 +214,7 @@ class UpdateInventory extends Component {
             .then(() => {
                this.clearFormHandler();
                this.setState({ submitDisabled: false });
-               this.props.setAllInvToRefresh(true);
+               this.props.updateInventory(userId);
                alert('Item Added');
             })
             .catch(err => {
@@ -382,14 +382,14 @@ class UpdateInventory extends Component {
 
 const mapStateToProps = reduxState => {
    return {
-      user_id: reduxState.user.userId,
+      userId: reduxState.user.userId,
       targetItem: reduxState.inventory.targetItem
    }
 }
 
 export default connect(mapStateToProps,
    {
-      setAllInvToRefresh,
+      updateInventory,
       setTargetItem
    }
 )(UpdateInventory)

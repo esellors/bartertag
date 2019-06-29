@@ -7,23 +7,27 @@ const initialState = {
    closedOffersAsPrimary: [],
    closedOffersAsSecondary: [],
    toBarterItems: [],
+   secondaryItemDetails: {},
+   primaryItemsDetails: [],
    barterMode: false
 }
 
-const UPDATE_OFFERS = 'UPDATE_OPEN_OFFERS';
 const ADD_BARTERING_ITEM = 'ADD_BARTERING_ITEM';
 const REMOVE_BARTERING_ITEM = 'REMOVE_BARTERING_ITEM';
 const CLEAR_BARTERING_ITEMS = 'CLEAR_BARTERING_ITEMS';
 const SET_BARTER_MODE = 'SET_BARTER_MODE';
+const CREATE_NEW_OFFER = 'CREATE_NEW_OFFER';
+const UPDATE_OFFERS = 'UPDATE_OFFERS';
+const FETCH_OFFER_ITEMS_DETAILS = 'FETCH_OFFER_ITEMS_DETAILS';
+const SEND_OFFER_NOTIFICATION = 'SEND_OFFER_NOTIFICATION';
 
-export function updateOffers(userId) {
+export function fetchOfferItemsDetails(secondaryItemId, primaryItem1Id, primaryItem2Id, primaryItem3Id) {
    return {
-      type: UPDATE_OFFERS,
+      type: FETCH_OFFER_ITEMS_DETAILS,
       payload: Axios
-         .get(`/api/offers/getoffers/${userId}`)
+         .get(`/api/offers/getitemsdetails/${secondaryItemId}/${primaryItem1Id}/${primaryItem2Id}/${primaryItem3Id}`)
          .then(res => res.data)
-         .catch(err => console.log(err.request))
-   };
+   }
 }
 
 export function addBarteringItem(itemId) {
@@ -53,27 +57,42 @@ export function setBarterMode(bool) {
    };
 }
 
+export function createNewOffer(offerObj, goBack) {
+   return {
+      type: CREATE_NEW_OFFER,
+      payload: Axios
+         .post('/api/offers/create', offerObj)
+         .then(res => [res.data, goBack])
+   };
+}
+
+export function updateOffers(userId) {
+   return {
+      type: UPDATE_OFFERS,
+      payload: Axios
+         .get(`/api/offers/getoffers/${userId}`)
+         .then(res => res.data)
+   };
+}
+
+export function sendOfferNotification() {
+   return {
+      type: SEND_OFFER_NOTIFICATION,
+      payload: Axios
+         .post(`/api/offers/`)
+   }
+}
 
 export default function offersReducer(state = initialState, action) {
    const {type, payload} = action;
    let toBarterItemsCopy = [...state.toBarterItems];
 
    switch(type) {
-      case `${UPDATE_OFFERS}_FULFILLED`:
-         return {
-            ...state,
-            newOffers: payload.newOffers,
-            pendingOffersAsPrimary: payload.pendingOffersAsPrimary,
-            pendingOffersAsSecondary: payload.pendingOffersAsSecondary,
-            closedOffersAsPrimary: payload.closedOffersAsPrimary,
-            closedOffersAsSecondary: payload.closedOffersAsSecondary
-         }
-
       case SET_BARTER_MODE:
          return {
             ...state,
             barterMode: payload
-         }
+         };
       case ADD_BARTERING_ITEM:
          return {
             ...state,
@@ -90,7 +109,34 @@ export default function offersReducer(state = initialState, action) {
          return {
             ...state,
             toBarterItems: []
+         };
+      case `${SEND_OFFER_NOTIFICATION}_FULFILLED`:
+         return state;
+      case `${FETCH_OFFER_ITEMS_DETAILS}_FULFILLED`:
+         const primaryItemsDetailsRes = payload.slice(1);
+         const secondaryItemDetailsRes = payload.slice(0, 1)[0];
+
+         return {
+            ...state,
+            primaryItemsDetails: primaryItemsDetailsRes,
+            secondaryItemDetails: secondaryItemDetailsRes
          }
+      case `${UPDATE_OFFERS}_REJECTED`:
+         return console.log(payload.response);
+      case `${UPDATE_OFFERS}_FULFILLED`:
+         return {
+            ...state,
+            newOffers: payload.newOffers,
+            pendingOffersAsPrimary: payload.pendingOffersAsPrimary,
+            pendingOffersAsSecondary: payload.pendingOffersAsSecondary,
+            closedOffersAsPrimary: payload.closedOffersAsPrimary,
+            closedOffersAsSecondary: payload.closedOffersAsSecondary
+         };
+      case `${CREATE_NEW_OFFER}_REJECTED`:
+         return alert(payload.response.data);
+      case `${CREATE_NEW_OFFER}_FULFILLED`:
+         alert(payload[0]);
+         payload[1]();
       default: return state;
    }
 }

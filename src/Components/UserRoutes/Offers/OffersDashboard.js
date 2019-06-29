@@ -9,7 +9,6 @@ class OffersDashboard extends Component {
       updateOffers(userId);
    }
    render() {
-      console.log(this.props)
       return (
          <div>
             <h1>OffersDashboard</h1>

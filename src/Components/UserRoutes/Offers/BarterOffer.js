@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import Axios from 'axios';
-
+import {createNewOffer, sendOfferNotification} from '../../../redux/reducers/offersReducer';
 
 
 
@@ -33,9 +32,10 @@ class BarterOffer extends Component {
    }
    handleTagButton(e) {
       e.preventDefault();
-      const {offerStatus, primaryUserId, secondaryUserId, primaryItemsIds, secondaryItemId} = this.props;
-      let {userMessage, userMessageRemark} = this.state;
 
+      const {offerStatus, primaryUserId, secondaryUserId, primaryItemsIds, secondaryItemId, createNewOffer, sendOfferNotification} = this.props;
+
+      let {userMessage, userMessageRemark} = this.state;
       if (userMessage === '') userMessage = null;
       if (userMessageRemark === '') userMessageRemark = null;
 
@@ -43,39 +43,31 @@ class BarterOffer extends Component {
       const primaryItem2Id = primaryItemsIds[1] || null;
       const primaryItem3Id = primaryItemsIds[2] || null;
 
-      console.log(primaryItemsIds)
-
+      // Creating new offer
       if (offerStatus === 'new') {
          if (primaryItem1Id === null) return alert('You must choose which of your items to offer!');
-         
-         Axios
-            .post('/api/offers/create', 
-               {
-                  offerStatus, 
-                  primaryUserId, 
-                  secondaryUserId,
-                  taggedUserId: secondaryUserId,
-                  primaryItem1Id,
-                  primaryItem2Id,
-                  primaryItem3Id,
-                  secondaryItemId,
-                  senderUserId: primaryUserId,
-                  messageStatus: 'unread',
-                  userMessage,
-                  userMessageRemark,
-                  notificationStatus: 'unread'
-               })
-            .then(res => {
-               alert(res.data)
-               this.props.history.goBack();
-            })
-            .catch(err => {
-               console.log(err);
-               alert('Something went wrong.');
-            })
-      }
 
+         const {goBack} = this.props.history;
 
+         return createNewOffer(
+            {
+               offerStatus, 
+               primaryUserId, 
+               secondaryUserId,
+               taggedUserId: secondaryUserId,
+               primaryItem1Id,
+               primaryItem2Id,
+               primaryItem3Id,
+               secondaryItemId,
+               senderUserId: primaryUserId,
+               messageStatus: 'unread',
+               userMessage,
+               userMessageRemark,
+               notificationStatus: 'unread'
+            }, goBack);
+      };
+
+      // Responding to current offer
 
    }
    render() {
@@ -115,6 +107,7 @@ class BarterOffer extends Component {
                   <option value='Not interested. What else can you offer?'>Not interested. What else can you offer?</option>
                </select>
                {offerStatus === 'new' ? <p>{newOfferNotice}</p> : null }
+               
                <button onClick={this.handleTagButton}>Tag!</button>
             </form>
          </div>
@@ -133,4 +126,9 @@ const mapStateToProps = reduxState => {
    }
 }
 
-export default withRouter(connect(mapStateToProps)(BarterOffer))
+export default withRouter(connect(mapStateToProps, 
+   {
+      createNewOffer,
+      sendOfferNotification
+   }
+)(BarterOffer))

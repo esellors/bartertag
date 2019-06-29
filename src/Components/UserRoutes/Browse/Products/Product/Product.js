@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {setBarterMode} from '../../../../../redux/reducers/offersReducer';
 import UserInfo from '../../../UserInfo';
-import BarterOffer from './BarterOffer';
+import BarterOffer from '../../../Offers/BarterOffer';
 import Inventory from '../../../Inventory/ViewInventory';
 
 class Product extends Component {

@@ -40,8 +40,9 @@ class RegisterUpdateUser extends Component {
    }
    populateUserInfo() {
       const {firstName, lastName, username, email, locationId} = this.props.user;
+      const {city, state} = this.props.user;
    
-      if (!this.props.user.city && !this.props.user.state) {
+      if (!city && !state) {
          Axios
             .get(`/api/user/getlocation/${locationId}`)
             .then(res => {
@@ -61,9 +62,9 @@ class RegisterUpdateUser extends Component {
             });
       } else {
          this.setState({
-            uneditedUserInfo: {...this.state.uneditedUserInfo, city: this.props.user.city, state: this.props.user.state},
-            city: this.props.user.city,
-            state: this.props.user.state
+            uneditedUserInfo: {...this.state.uneditedUserInfo, city: city, state: state},
+            city: city,
+            state: state
          });
       }
       

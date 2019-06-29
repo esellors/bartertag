@@ -2,38 +2,26 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import Axios from 'axios';
 import {connect} from 'react-redux';
-import {getAllInventory, setAllInvToRefresh} from '../../../redux/reducers/inventoryReducer';
+import {updateInventory} from '../../../redux/reducers/inventoryReducer';
 import {addBarteringItem, removeBarteringItem, clearBarteringItems} from '../../../redux/reducers/offersReducer';
 
 class ViewInventory extends Component {
    constructor(props) {
       super(props);
-      this.state = {
-         inputKey: Date.now()
-      }
       this.deleteInventoryItem = this.deleteInventoryItem.bind(this);
       this.checkBoxHandler = this.checkBoxHandler.bind(this);
    }
    componentDidMount() {
-      if (this.props.allInventory.length === 0 || this.props.needsRefresh) {
-         this.refreshInventory();
-      }
-   }
+      const {userId, updateInventory} = this.props;
+      if (this.props.allInventory.length === 0) updateInventory(userId);
+   }  
    componentWillUnmount() {
       if (this.props.barterMode) this.props.clearBarteringItems();
    }
-   refreshInventory() {
-      this.props.setAllInvToRefresh(false);
-
-      Axios
-         .get(`/api/inventory/getallinventory/${this.props.userId}`)
-         .then(res => this.props.getAllInventory(res.data));
-
-      this.setState({ inputKey: Date.now() })
-   };
    deleteInventoryItem(e) {
       e.preventDefault();
       const inventoryIdStr = e.target.name;
+      const {userId} = this.props;
 
       const splitIndex = inventoryIdStr.indexOf('*');
       const dbId = inventoryIdStr.slice(0, splitIndex);
@@ -45,12 +33,9 @@ class ViewInventory extends Component {
       ]).then(([detailsDeleteRes, imgDeleteRes]) => {
          console.log(detailsDeleteRes)
          console.log(imgDeleteRes)
-      }).catch(err => {
-         alert('Error: Check console for details.')
-         console.log(err.request)
-      }); 
+      }).catch(err => console.log(err));
 
-      this.refreshInventory();
+      this.props.updateInventory(userId);
    }
    checkBoxHandler(e) {
       const itemId = parseInt(e.target.name)
@@ -64,20 +49,18 @@ class ViewInventory extends Component {
       } else {
          alert('Maximum of 3 items allowed')
       };
-
    }
    render() {
       const {allInventory, barterMode, toBarterItems} = this.props;
 
-      const mappedInventory = allInventory && allInventory.length === 0 
-         ? 'Nothing in your inventory'
-         : allInventory.map((item, i) => {
+      const allInventoryMapped =  allInventory && allInventory.length > 0 
+         ? allInventory.map((item, i) => {
             let {user_item_id, time_added, item_name, item_condition, item_desc, img_aws_url, img_aws_key} = item;
 
             let dateString = new Date(`${time_added}`).toString();
 
             return (
-               <div key={user_item_id}>
+               <div key={i}>
 
                   {barterMode ? null : (
                      <>
@@ -122,12 +105,13 @@ class ViewInventory extends Component {
                   )}
                </div>
             );
-      })
+         })
+         : 'Nothing in your inventory'
 
       return (
          <div>
             <h1>View Inventory</h1>
-            {mappedInventory}
+            {allInventoryMapped}
          </div>
       );
    }
@@ -137,7 +121,6 @@ const mapStateToProps = reduxState => {
    return {
       userId: reduxState.user.userId,
       allInventory: reduxState.inventory.allInventory,
-      needsRefresh: reduxState.inventory.allInvToRefresh,
       barterMode: reduxState.offers.barterMode,
       toBarterItems: reduxState.offers.toBarterItems
    }
@@ -145,8 +128,7 @@ const mapStateToProps = reduxState => {
 
 export default connect(mapStateToProps, 
    {
-      setAllInvToRefresh,
-      getAllInventory,
+      updateInventory,
       addBarteringItem,
       removeBarteringItem,
       clearBarteringItems

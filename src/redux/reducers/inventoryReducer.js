@@ -1,28 +1,23 @@
 import store from '../store';
+import Axios from 'axios';
 
 const initialState = {
    allInventory: [],
-   allInvToRefresh: false,
    targetItem: {}
 };
 
-const GET_ALL_INVENTORY = 'GET_ALL_INVENTORY';
+const UPDATE_ALL_INVENTORY = 'GET_ALL_INVENTORY';
 const SET_TARGET_ITEM = 'SET_TARGET_ITEM';
-const SET_ALL_INV_TO_REFRESH = 'SET_ALL_INV_TO_REFRESH';
 
-export function getAllInventory(inventory) {
+export function updateInventory(userId) {
    return {
-      type: GET_ALL_INVENTORY,
-      payload: inventory
-   };
+      type: UPDATE_ALL_INVENTORY,
+      payload: Axios
+         .get(`/api/inventory/getallinventory/${userId}`)
+         .then(res => res.data)
+         .catch(err => console.log(err))
+   }
 }
-
-// export function getAllInventory() {
-//    return {
-//       type: GET_ALL_INVENTORY,
-//       payload
-//    }
-// }
 
 export function setTargetItem(itemId) {
    const targetItem = store.getState().inventory.allInventory.find(item => {
@@ -35,18 +30,11 @@ export function setTargetItem(itemId) {
    }
 }
 
-export function setAllInvToRefresh(bool) {
-   return {
-      type: SET_ALL_INV_TO_REFRESH,
-      payload: bool
-   }
-}
-
 export default function inventoryReducer(state = initialState, action) {
    const {type, payload} = action;
 
    switch(type) {
-      case GET_ALL_INVENTORY:
+      case `${UPDATE_ALL_INVENTORY}_FULFILLED`:
          return {
             ...state,
             allInventory: payload
@@ -55,11 +43,6 @@ export default function inventoryReducer(state = initialState, action) {
          return {
             ...state,
             targetItem: payload
-         }
-      case SET_ALL_INV_TO_REFRESH:
-         return {
-            ...state,
-            allInvToRefresh: payload
          }
       default: return state;
    }

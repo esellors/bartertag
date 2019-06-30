@@ -31,7 +31,7 @@ const getItemsDetails = async function(req, res) {
    for (let i = 0; i < dbRes.length; i++) {
       if (dbRes[i] !== undefined) itemsDetails.push(dbRes[i][0]);
    }
-   
+
    res.status(200).json(itemsDetails);
 }
 

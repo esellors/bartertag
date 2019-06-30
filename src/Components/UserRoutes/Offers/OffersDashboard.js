@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {updateOffers} from '../../../redux/reducers/offersReducer';
+import {clearNotifications} from '../../../redux/reducers/notificationsReducer';
 import {Link} from 'react-router-dom';
 
 class OffersDashboard extends Component {
    componentDidMount() {
-      const {updateOffers, userId} = this.props;
+      const {updateOffers, clearNotifications, userId} = this.props;
+
       updateOffers(userId);
+      clearNotifications(userId);
    }
    render() {
       return (
@@ -27,6 +30,7 @@ const mapStateToProps = reduxState => {
 
 export default connect(mapStateToProps, 
    {
-      updateOffers
+      updateOffers,
+      clearNotifications
    }
 )(OffersDashboard)

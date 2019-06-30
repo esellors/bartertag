@@ -12,11 +12,13 @@ const initialState = {
    barterMode: false
 }
 
+const UPDATE_STATUS_TO_SEEN = 'UPDATE_STATUS_TO_SEEN';
 const ADD_BARTERING_ITEM = 'ADD_BARTERING_ITEM';
 const REMOVE_BARTERING_ITEM = 'REMOVE_BARTERING_ITEM';
 const CLEAR_BARTERING_ITEMS = 'CLEAR_BARTERING_ITEMS';
 const SET_BARTER_MODE = 'SET_BARTER_MODE';
 const CREATE_NEW_OFFER = 'CREATE_NEW_OFFER';
+const RESPOND_TO_OFFER = 'RESPOND_TO_OFFER';
 const UPDATE_OFFERS = 'UPDATE_OFFERS';
 const FETCH_OFFER_ITEMS_DETAILS = 'FETCH_OFFER_ITEMS_DETAILS';
 const SEND_OFFER_NOTIFICATION = 'SEND_OFFER_NOTIFICATION';
@@ -66,6 +68,15 @@ export function createNewOffer(offerObj, goBack) {
    };
 }
 
+export function respondToOffer(offerObj) {
+   return {
+      type: RESPOND_TO_OFFER,
+      payload: Axios
+         .post('/api/offers/respond', offerObj)
+         .then(res => res.data)
+   };
+}
+
 export function updateOffers(userId) {
    return {
       type: UPDATE_OFFERS,
@@ -75,11 +86,12 @@ export function updateOffers(userId) {
    };
 }
 
-export function sendOfferNotification() {
+export function updateStatusToSeen(messageId) {
    return {
-      type: SEND_OFFER_NOTIFICATION,
+      type: UPDATE_STATUS_TO_SEEN,
       payload: Axios
-         .post(`/api/offers/`)
+         .put(`/api/offers/updatemessagetoseen/${messageId}`)
+         .then(res => res.data)
    }
 }
 
@@ -133,10 +145,22 @@ export default function offersReducer(state = initialState, action) {
             closedOffersAsSecondary: payload.closedOffersAsSecondary
          };
       case `${CREATE_NEW_OFFER}_REJECTED`:
-         return alert(payload.response.data);
+         alert(payload.response.data);
+         return { ...state };
       case `${CREATE_NEW_OFFER}_FULFILLED`:
          alert(payload[0]);
          payload[1]();
+         return { ...state };
+      case `${RESPOND_TO_OFFER}_REJECTED`:
+         alert(payload.response.data);
+         return { ...state };
+      case `${RESPOND_TO_OFFER}_FULFILLED`:
+         console.log(payload)
+         alert(payload);
+         return { ...state };
+      case `${UPDATE_STATUS_TO_SEEN}_REJECTED`:
+         alert(payload);
+         return { ...state };
       default: return state;
    }
 }

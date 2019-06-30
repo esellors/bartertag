@@ -1,5 +1,5 @@
 const offerCreate = async function(req, res) {
-   const {offerStatus, primaryUserId, secondaryUserId, taggedUserId, primaryItem1Id, primaryItem2Id, primaryItem3Id, secondaryItemId, senderUserId, messageStatus, userMessage, userMessageRemark, notificationStatus} = req.body
+   const {offerStatus, primaryUserId, secondaryUserIdNew, taggedUserId, primaryItem1Id, primaryItem2Id, primaryItem3Id, secondaryItemId, senderUserId, messageStatus, userMessage, userMessageRemark, notificationStatus} = req.body
 
    const db = req.app.get('db');
 
@@ -7,7 +7,7 @@ const offerCreate = async function(req, res) {
    let createOfferRes;
 
    try {
-      createOfferRes = await db.create_offer(offerStatus, primaryUserId, secondaryUserId, taggedUserId, primaryItem1Id, primaryItem2Id, primaryItem3Id, secondaryItemId);
+      createOfferRes = await db.create_offer(offerStatus, primaryUserId, secondaryUserIdNew, taggedUserId, primaryItem1Id, primaryItem2Id, primaryItem3Id, secondaryItemId);
    } catch(err) {
       console.log(err);
       return res.status(500).send('Error creating new offer');

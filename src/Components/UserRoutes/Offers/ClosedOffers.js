@@ -3,34 +3,71 @@ import {connect} from 'react-redux';
 import updateOffers from '../../../redux/reducers/offersReducer';
 
 class ClosedOffers extends Component {
-   updateOffers() {
-      const {userId, updateOffers} = this.props;
-      updateOffers(userId);
-   }
    render() {
 
-      const {closedOffers} = this.props;
+      const {closedOffersAsPrimary, closedOffersAsSecondary} = this.props;
 
-      const closedOffersMapped = closedOffers.length === 0 
-         ? 'You have no closed offers.'
-         :
-            closedOffers.map((offer, i) => 
-                <h1 key={i}>{offer.secondary_user_id}</h1>
-            )
+      const closedOffersAsPrimaryMapped = closedOffersAsPrimary.length > 0
+         ?
+            closedOffersAsPrimary.map(offer => {
+
+               const {offer_id, time_initiated, time_finalized, finalizing_user_id, finalizing_remark, username, city, state} = offer;
+
+               const {userId} = this.props;
+
+               const finalizingUser = userId === finalizing_user_id ? 'You' : username;
+
+               return (
+                  <div key={`${offer_id}-${Date.now()}`}>
+                     <p>Barter Tag with {username} from {city}, {state}.</p>
+                     <p>Tag closed by {finalizingUser} on {time_finalized}.</p>
+                     <p>Closing Tag Remark: {finalizing_remark}</p>
+                     <p>Tag first initiated on {time_initiated}</p>
+                  </div>
+               );
+            })
+         : 'No Closed Barter Tags to Show.'
+
+      const closedOffersAsSecondaryMapped = closedOffersAsSecondary.length > 0
+      ?
+         closedOffersAsSecondary.map(offer => {
+
+            const {offer_id, time_initiated, time_finalized, finalizing_user_id, finalizing_remark, username, city, state} = offer;
+
+            const {userId} = this.props;
+
+            const finalizingUser = userId === finalizing_user_id ? 'You' : username;
+
+            return (
+               <div key={`${offer_id}-${Date.now()}`}>
+                  <p>Barter Tag with {username} from {city}, {state}.</p>
+                  <p>Tag closed by {finalizingUser} on {time_finalized}.</p>
+                  <p>Closing Tag Remark: {finalizing_remark}</p>
+                  <p>Tag first initiated on {time_initiated}</p>
+               </div>
+            );
+         })
+      : 'No Closed Barter Tags to Show.'
 
       return (
          <div>
-            <h1>ClosedOffers</h1>
-            {closedOffersMapped}
+            <h1>Closed Offers that You Started</h1>
+            {closedOffersAsPrimaryMapped}
+
+            <h1>Closed Offers Others Started</h1>
+            {closedOffersAsSecondaryMapped}
          </div>
       );
    }
 }
 
 const mapStateToProps = reduxState => {
+   const {closedOffersAsPrimary, closedOffersAsSecondary} = reduxState.offers;
+
    return {
       userId: reduxState.user.userId,
-      closedOffers: reduxState.offers.closedOffers
+      closedOffersAsPrimary,
+      closedOffersAsSecondary
    }
 }
 

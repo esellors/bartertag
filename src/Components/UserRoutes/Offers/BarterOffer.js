@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import {createNewOffer, sendOfferNotification} from '../../../redux/reducers/offersReducer';
+import {createNewOffer, respondToOffer, updateOffers} from '../../../redux/reducers/offersReducer';
 
 
 
@@ -21,6 +21,8 @@ class BarterOffer extends Component {
       this.state = {
          userMessage: '',
          userMessageRemark: '',
+         closeRemark: '',
+         finalizingUserId: '',
          barteringItems: []
       };
       this.handleInputChange = this.handleInputChange.bind(this);
@@ -28,12 +30,17 @@ class BarterOffer extends Component {
    }
    handleInputChange(e) {
       const {name, value} = e.target;
+
+      if (name === 'closeRemark') this.setState({ finalizingUserId: this.props.userId });
+
       this.setState({ [name]: value });
    }
    handleTagButton(e) {
       e.preventDefault();
 
-      const {offerStatus, primaryUserId, secondaryUserId, primaryItemsIds, secondaryItemId, createNewOffer, sendOfferNotification} = this.props;
+      const {primaryUserId, secondaryUserIdNew, primaryItemsIds, secondaryItemId, createNewOffer, respondToOffer, updateOffers} = this.props;
+
+      let {offerStatus} = this.props;
 
       let {userMessage, userMessageRemark} = this.state;
       if (userMessage === '') userMessage = null;
@@ -53,21 +60,49 @@ class BarterOffer extends Component {
             {
                offerStatus, 
                primaryUserId, 
-               secondaryUserId,
-               taggedUserId: secondaryUserId,
+               secondaryUserIdNew,
+               taggedUserId: secondaryUserIdNew,
                primaryItem1Id,
                primaryItem2Id,
                primaryItem3Id,
                secondaryItemId,
                senderUserId: primaryUserId,
-               messageStatus: 'unread',
+               messageStatus: 'unseen',
                userMessage,
                userMessageRemark,
-               notificationStatus: 'unread'
+               notificationStatus: 'unseen'
             }, goBack);
       };
 
       // Responding to current offer
+      if (offerStatus === 'pending') {
+         const {closeRemark, finalizingUserId} = this.state;
+         const {secondaryUserIdPending} = this.props;
+
+         if (!userMessage && !userMessageRemark && !closeRemark) return alert('You have not created a response.');
+         
+         const {offerId, userId} = this.props;
+
+         const taggedUserId = userId === primaryUserId ? secondaryUserIdPending : userId;
+
+         offerStatus = closeRemark ? 'closed' : offerStatus;
+
+         respondToOffer(
+            {
+               offerId,
+               offerStatus,
+               closeRemark,
+               finalizingUserId,
+               taggedUserId,
+               senderUserId: userId,
+               messageStatus: 'unseen',
+               userMessage,
+               userMessageRemark,
+               notificationStatus: 'unseen'
+            });
+
+         return updateOffers(userId);
+      };
 
    }
    render() {
@@ -90,13 +125,29 @@ class BarterOffer extends Component {
                   name='userMessage'
                   id='userMessage'
                />
+
+               {this.props.offerStatus === 'pending'
+               ?
+                  <select 
+                     onChange={this.handleInputChange}
+                     value={this.state.closeRemark}
+                     name='closeRemark'
+                  >
+                     <option value='' disabled>Optional: Close offer?</option>
+                     <option value=''></option>
+                     <option value='Not Interested'>Not Interested</option>
+                     <option value='Cannot Reach Agreement'>Cannot Reach Agreement</option>
+                     <option value='Barter Trade Made'>Barter Trade Made</option>
+                  </select>
+               : null }
+               
                <select
                   onChange={this.handleInputChange}
                   value={this.state.userMessageRemark}
                   name='userMessageRemark'
                >
-                  <option value='' disabled>Optional Remarks:</option>
-                  <option value=''>None</option>
+                  <option value='' disabled>Optional Remark:</option>
+                  <option value=''></option>
                   <option value='Tell me more about the specs.'>Tell me more about the specs.</option>
                   <option value='Tell me more about features.'>Tell me more about features.</option>
                   <option value='How do you use the item?'>How do you use the item?</option>
@@ -119,8 +170,9 @@ const mapStateToProps = reduxState => {
    const {offers, products, user} = reduxState;
 
    return {
+      userId: user.userId,
       primaryUserId: user.userId,
-      secondaryUserId: products.productView.user_id,
+      secondaryUserIdNew: products.productView.user_id,
       primaryItemsIds: offers.toBarterItems,
       secondaryItemId: products.productView.user_item_id
    }
@@ -129,6 +181,7 @@ const mapStateToProps = reduxState => {
 export default withRouter(connect(mapStateToProps, 
    {
       createNewOffer,
-      sendOfferNotification
+      respondToOffer,
+      updateOffers
    }
 )(BarterOffer))

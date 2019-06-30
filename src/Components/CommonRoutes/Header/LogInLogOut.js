@@ -45,10 +45,7 @@ class LogInLogOut extends Component {
       Axios.post('/auth/login', {username, password})
          .then(res => this.props.logInUser(res.data) )
          .then(() => this.props.history.push('/browse'))
-         .catch(err => {
-            console.log(err.request);
-            alert(err.request.responseText);
-         });
+         .catch(err => console.log(err));
    }
    handleLogOut() {
       Axios.post('/auth/logout')

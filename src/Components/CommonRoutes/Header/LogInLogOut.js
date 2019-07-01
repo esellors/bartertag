@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {logInUser} from '../../../redux/reducers/userReducer';
 import {logOutUser} from '../../../redux/reducers/userReducer';
 import Axios from 'axios';
+import {clearInventory} from '../../../redux/reducers/inventoryReducer';
 import {withRouter} from 'react-router';
 
 class LogInLogOut extends Component {
@@ -50,7 +51,10 @@ class LogInLogOut extends Component {
    handleLogOut() {
       Axios.post('/auth/logout')
          .then(() => this.props.logOutUser() )
-         .then(() => this.props.history.push('/'))
+         .then(() => {
+            this.props.clearInventory();
+            this.props.history.push('/');
+         })
          .catch(err => console.log(err));
    }
    render() {
@@ -105,6 +109,7 @@ const mapStateToProps = reduxState => {
 export default withRouter(connect(mapStateToProps, 
    {
       logInUser,
-      logOutUser
+      logOutUser,
+      clearInventory
    }
 )(LogInLogOut))

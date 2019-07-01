@@ -3,18 +3,6 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import {createNewOffer, respondToOffer, updateOffers} from '../../../redux/reducers/offersReducer';
 
-
-
-
-// add barter thing to mapped out open offers w/ ability to close offer
-// map out closed offers
-// notifications
-// user info page and reviews
-
-
-
-
-
 class BarterOffer extends Component {
    constructor(props) {
       super(props);

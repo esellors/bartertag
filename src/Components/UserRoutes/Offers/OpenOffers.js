@@ -36,7 +36,7 @@ class OpenOffers extends Component {
       if (offerId === this.state.lastDisplayedOfferId) return;
 
       // fetch offer details and set status to seen
-      this.props.fetchOfferItemsDetails(secondaryItemId, primaryItem1Id, primaryItem2Id, primaryItem3Id)
+      fetchOfferItemsDetails(secondaryItemId, primaryItem1Id, primaryItem2Id, primaryItem3Id)
 
       if (userId === taggedUserId) updateStatusToSeen(messageId);
 

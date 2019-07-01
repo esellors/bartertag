@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import UpdateUser from '../CommonRoutes/RegisterUpdateUser';
-import UserInfo from './UserInfo';
+
 
 class UserPreferences extends Component {
    render() {
@@ -9,7 +9,7 @@ class UserPreferences extends Component {
          <div>
             <h1>UserPreferences</h1>
             <UpdateUser user={this.props.user} />
-            <UserInfo userId={this.props.user.userId} />
+            
          </div>
       );
    }

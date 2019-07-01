@@ -8,6 +8,7 @@ const initialState = {
 
 const UPDATE_ALL_INVENTORY = 'GET_ALL_INVENTORY';
 const SET_TARGET_ITEM = 'SET_TARGET_ITEM';
+const CLEAR_INVENTORY = 'CLEAR_INVENTORY';
 
 export function updateInventory(userId) {
    return {
@@ -30,6 +31,12 @@ export function setTargetItem(itemId) {
    }
 }
 
+export function clearInventory() {
+   return {
+      type: CLEAR_INVENTORY
+   }
+}
+
 export default function inventoryReducer(state = initialState, action) {
    const {type, payload} = action;
 
@@ -43,6 +50,11 @@ export default function inventoryReducer(state = initialState, action) {
          return {
             ...state,
             targetItem: payload
+         }
+      case CLEAR_INVENTORY:
+         return {
+            ...state,
+            allInventory: []
          }
       default: return state;
    }

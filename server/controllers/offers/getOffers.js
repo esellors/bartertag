@@ -1,5 +1,5 @@
 const getOffers = async function(req, res) {
-   const {userId} = req.params;
+   const userId = parseInt(req.params.userId);
    const db = req.app.get('db');
 
    let newOffers, pendingOffersAsPrimary, pendingOffersAsSecondary, closedOffersAsPrimary, closedOffersAsSecondary;
@@ -7,7 +7,7 @@ const getOffers = async function(req, res) {
    try {
       newOffers = await db.get_offers_as_secondary(userId, 'new');
    
-      pendingOffersAsPrimary = await db.get_offers_as_primary(userId, 'pending');
+      pendingOffersAsPrimary = await db.get_offers_open_as_primary(userId);
    
       pendingOffersAsSecondary = await db.get_offers_as_secondary(userId, 'pending');
    

@@ -1,10 +1,10 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
+import promise from 'redux-promise-middleware';
 import userReducer from './reducers/userReducer';
 import inventoryReducer from './reducers/inventoryReducer';
 import productsReducer from './reducers/productsReducer';
 import offersReducer from './reducers/offersReducer';
 import notificationsReducer from './reducers/notificationsReducer';
-import promise from 'redux-promise-middleware';
 
 const rootReducer = combineReducers({
    user: userReducer,

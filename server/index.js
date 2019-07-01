@@ -8,9 +8,11 @@ const inventoryRoutes = require('./routes/inventory');
 const productsRoutes = require('./routes/products');
 const offersRoutes = require('./routes/offers');
 const notificationsRoutes = require('./routes/notifications');
+const nodemailer = require('nodemailer');
+const contact = require('./controllers/contact');
 const app = express();
 
-const {SERVER_PORT, SESSION_SECRET, DATABASE_STRING} = process.env;
+const {SERVER_PORT, SESSION_SECRET, DATABASE_STRING, EMAIL_NAME, EMAIL_PW} = process.env;
 
 app.use((req, res, next) => {
    console.log('================ server hit ================');
@@ -18,6 +20,28 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+
+const transport = {
+   host: 'mail.privateemail.com',
+   port: 587,
+   secure: false,
+   auth: {
+       user: EMAIL_NAME,
+       pass: EMAIL_PW
+   }
+ };
+
+ const transporter = nodemailer.createTransport(transport);
+
+ transporter.verify((error, success) => {
+   //   console.log(MAIL_USER, MAIL_PASS)
+   if (error) {
+     console.log(error);
+   } else {
+     console.log('Server listening for messages');
+   }
+ })
+ 
 
 app.use(session({
    secret: SESSION_SECRET,
@@ -39,5 +63,7 @@ app.use('/api/inventory', inventoryRoutes);
 app.use('/api/products', productsRoutes);
 app.use('/api/offers', offersRoutes);
 app.use('/api/notifications', notificationsRoutes);
+
+app.post('/api/contact', contact)
 
 app.listen(SERVER_PORT, () => console.log(`Server listening on ${SERVER_PORT}`));

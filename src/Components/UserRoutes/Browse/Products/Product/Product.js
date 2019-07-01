@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {setBarterMode} from '../../../../../redux/reducers/offersReducer';
-import UserInfo from '../../../UserInfo';
 import BarterOffer from '../../../Offers/BarterOffer';
 import Inventory from '../../../Inventory/ViewInventory';
 
@@ -32,16 +31,23 @@ class Product extends Component {
  
       return (
          <div>
-            <UserInfo userId={user_id} />
             <time>{time_added}</time>
             <h1>{item_name}</h1>
             <p>{item_condition}</p>
-            <img src={img_aws_url} />
+            <img src={img_aws_url} alt='User Item' />
             <p>{item_desc}</p>
-            <button 
+
+            {this.props.userId !== user_id
+            ?
+               <button 
                name='toggleBarterOffer'
                onClick={this.componentToggler}
-            >{toggleBarterOffer ? 'Cancel' : 'Start Barter Tag!'}</button>
+               >
+                  {toggleBarterOffer ? 'Cancel' : 'Start Barter Tag!'}
+               </button>
+            : null
+            }
+            
             {toggleBarterOffer ? (
                <>
                   <BarterOffer offerStatus='new' />
@@ -55,7 +61,8 @@ class Product extends Component {
 
 const mapStateToProps = reduxState => {
    return {
-      productView: reduxState.products.productView
+      productView: reduxState.products.productView,
+      userId: reduxState.user.userId
    };
 }
 

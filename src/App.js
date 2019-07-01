@@ -11,24 +11,24 @@ import Footer from './Components/CommonRoutes/Footer';
 
 function App(props) {
 
-  // const routes = props.isLoggedIn ? userRoutes : guestRoutes;
-
   return (
     <div>
       <Header />
-      {
-        props.isLoggedIn
-        ?
-          <>
-            <UserDashboard />
-            {userRoutes}
-          </>
-        :
-          <>
-            <GuestDashboard />
-            {guestRoutes}
-          </>
-      }
+      <main>
+        {
+          props.isLoggedIn
+          ?
+            <>
+              <UserDashboard />
+              {userRoutes}
+            </>
+          :
+            <>
+              <GuestDashboard />
+              {guestRoutes}
+            </>
+        }
+      </main>
       <Footer />
     </div>
   );

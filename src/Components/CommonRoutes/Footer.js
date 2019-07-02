@@ -3,21 +3,24 @@ import {Link} from 'react-router-dom';
 
 export default function Footer() {
    return (
-      <footer>
-         <h2>Footer</h2>
-         <ul>
-            <li>Safety Tips:</li>
-            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
-            <li>Magna aliqua ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</li>
-            <li>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-            <li><Link>Report User</Link></li>
-         </ul>
-         <ul>
-            <li><Link to='/donate'>Donate</Link></li>
-            <li><Link to='/missionstatement'>Mission Statement</Link></li>
-            <li><Link to='/advertise'>Advertise</Link></li>
-            <li><Link to='/contact'>Contact</Link></li>
-         </ul>
-      </footer>
+      <div id='footer_container'>
+         <footer>
+            <span>
+               <p>Safety Tips:</p>
+               <ul>
+                  <li>Never give out personal details if you feel unsafe</li>
+                  <li>Always meet in safe places to trade for local deals</li>
+                  <li>Always take a buddy to accompany you on trade meet ups</li>
+                  <li><Link to='/contact'>Report User</Link></li>
+               </ul>
+            </span>
+
+            <ul>
+               <li>&copy; 2019 Eric Sellors</li>
+               <li><Link to='/missionstatement'>Mission Statement</Link></li>
+               <li><Link to='/contact'>Contact</Link></li>
+            </ul>
+         </footer>
+      </div>
    );
 };

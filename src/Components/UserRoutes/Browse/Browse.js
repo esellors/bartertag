@@ -11,20 +11,20 @@ class Browse extends Component {
    }
    
    render() {
-      const categoriesMapped = categories.map((cat, i, arr) => {
+      const categoriesMapped = categories.map((cat, i) => {
          const {name, link, img} = cat;
    
          return (
-            <div key={i}>
-               <Link to={`/browse/${link}`}>
+            <div className='categories' key={i}>
+               <Link className='category_item' to={`/browse/${link}`}>
                   <img src={require(`../../../assets/categories/${img}`)} alt={name} />
-                  <h1>{name}</h1>
+                  <h5>{name}</h5>
                </Link>
             </div>
          );
       })
       return (
-         <section>
+         <section id='browse'>
    
             {categoriesMapped}
             

@@ -7,9 +7,7 @@ class UserPreferences extends Component {
    render() {
       return (
          <div>
-            <h1>UserPreferences</h1>
-            <UpdateUser user={this.props.user} />
-            
+            <UpdateUser user={this.props.user} />     
          </div>
       );
    }

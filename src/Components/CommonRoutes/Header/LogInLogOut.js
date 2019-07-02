@@ -59,17 +59,17 @@ class LogInLogOut extends Component {
    }
    render() {
       return (
-         <div>
+         <>
             {
                this.props.isLoggedIn
                ?
-                  <div id='logout-user'>
-                     <h3>Welcome, {this.props.userFirstName}!</h3>
+                  <div id='loginlogout_loggedin'>
+                     <h4>Welcome, {this.props.userFirstName}!</h4>
                      <button onClick={this.handleLogOut}>Log Out</button>
                   </div>
                : 
                   <form onSubmit={this.handleLogIn}>
-                     <span id='login-inputs'>
+                     <div id='loginlogout_loggedout'>
                         <span>
                            <label htmlFor='login-username-input'>Username</label>
                            <input 
@@ -91,10 +91,10 @@ class LogInLogOut extends Component {
                            />
                         </span>
                         <button type='submit'>Log In</button>
-                     </span>
+                     </div>
                   </form>   
             }
-         </div>
+         </>
       );
    }
 }

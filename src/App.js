@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import './reset.css';
-import './index.css';
+import './styles/reset.css';
+import './styles/main.css';
 import guestRoutes from './Components/GuestRoutes/guestRoutes';
 import userRoutes from './Components/UserRoutes/userRoutes';
 import Header from './Components/CommonRoutes/Header/Header';
@@ -13,22 +13,27 @@ function App(props) {
 
   return (
     <div>
-      <Header />
-      <main>
-        {
-          props.isLoggedIn
-          ?
-            <>
-              <UserDashboard />
-              {userRoutes}
-            </>
-          :
-            <>
+      {
+        props.isLoggedIn
+        ?
+          <>
+            <div id='routes_top_container'>
+              <Header />
+              <main>
+                <UserDashboard />
+                {userRoutes}
+              </main>
+            </div>
+          </>
+        :
+          <div id='routes_top_container'>
+            <Header />
+            <main>
               <GuestDashboard />
               {guestRoutes}
-            </>
-        }
-      </main>
+            </main>
+          </div>
+      }
       <Footer />
     </div>
   );

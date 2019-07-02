@@ -7,7 +7,7 @@ function Dashboard(props) {
    const notifications = props.notifications ? 'NEW OFFERS' : 'Offers';
 
    return (
-      <ul>
+      <ul className='dashboard'>
          <li><Link to='/browse'>Browse</Link></li>
          <li><Link to='/offers'>{notifications}</Link></li>
          <li><Link to='/inventory'>Inventory</Link></li>

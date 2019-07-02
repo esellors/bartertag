@@ -3,9 +3,9 @@ import {Link} from 'react-router-dom';
 
 export default function Dashboard() {
    return (
-      <div>
-         <Link to='/'>Home</Link>
-         <Link to='/register'>Register for Free!</Link>
-      </div>
+      <ul className='dashboard'>
+         <li><Link to='/'>Home</Link></li>
+         <li><Link to='/register'>Register for Free!</Link></li>
+      </ul>
    );
 }

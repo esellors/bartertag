@@ -59,31 +59,48 @@ class ViewInventory extends Component {
 
             let dateString = new Date(`${time_added}`).toString();
 
+            switch(item_condition) {
+               case '1':
+                  item_condition = 'Poor'
+                  break;
+               case '2':
+                  item_condition = 'Fair'
+                  break;
+               case '3':
+                  item_condition = 'Good'
+                  break;
+               case '4':
+                  item_condition = 'Great'
+                  break;
+               case '5':
+                  item_condition = 'Excellent'
+                  break;
+               default: return 'Unknown Condition'
+            };
+
             return (
-               <div key={i}>
+               <div class='inventory_item' key={i}>
 
                   {barterMode ? null : (
                      <>
-                        <h2>DATE ADDED</h2>
-                        <p>{dateString}</p>
+                        <p>Added: {dateString}</p>
                      </>
                   )}
                   
-                  <h2>TITLE</h2>
-                  <p>{item_name}</p>
+                  <h5>{item_name}</h5>
                   <img src={img_aws_url} alt='Inventory Item' />
 
                   {barterMode ? null : (
                      <>
-                        <h2>CONDITION</h2>
+                        <h5>CONDITION</h5>
                         <p>{item_condition}</p>
-                        <h2>DESCRIPTION</h2>
+                        <h5>DESCRIPTION</h5>
                         <p>{item_desc}</p>
                      </>
                   )}
 
                   {barterMode ? (
-                     <>
+                     <div class='select_barter_item'>
                         <p>Offer this item:</p>
                         <input 
                            type='checkbox'
@@ -91,7 +108,7 @@ class ViewInventory extends Component {
                            onChange={this.checkBoxHandler}
                            checked={toBarterItems.includes(user_item_id)}
                         />
-                     </>
+                     </div>
                   ) : (
                      <>
                         <Link from='/inventory' to={`/inventory/update/${user_item_id}`}>
@@ -106,11 +123,11 @@ class ViewInventory extends Component {
                </div>
             );
          })
-         : 'Nothing in your inventory'
+         : <p>Nothing in your inventory, yet.</p>
 
       return (
          <div>
-            <h1>View Inventory</h1>
+            <h5>Your Inventory</h5>
             {allInventoryMapped}
          </div>
       );

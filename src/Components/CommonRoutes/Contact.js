@@ -38,39 +38,48 @@ class Contact extends Component{
    }
    render() {
 
-      const {firstName, lastName, userEmailAddress, userEmailBody, submitDisabled} = this.state;
+      const {firstName, lastName, userEmailAddress, userEmailBody} = this.state;
 
       return (
-         <div>
-            <p>Contact Us</p>
-            <form>
-               <label>Email Address:</label>
-               <input 
-                  name='userEmailAddress'
-                  type='email'
-                  value={userEmailAddress}
-                  onChange={this.handleInputChange}
-               />
-               <label>First Name:</label>
-               <input 
-                  name='firstName'
-                  type='text'
-                  value={firstName}
-                  onChange={this.handleInputChange}
-               />
-               <label>Last Name:</label>
-               <input
-                  name='lastName'
-                  type='text'
-                  value={lastName}
-                  onChange={this.handleInputChange}
-               />
-               <label>Message:</label>
-               <textarea
-                  name='userEmailBody'
-                  value={userEmailBody}
-                  onChange={this.handleInputChange}
-               />
+         <div class='footer_linked_component'>
+            <form class='input_form'>
+               <h3>Contact Us</h3>
+               <span>
+                  <label>Email Address:</label>
+                  <input 
+                     name='userEmailAddress'
+                     type='email'
+                     value={userEmailAddress}
+                     onChange={this.handleInputChange}
+                  />
+               </span>
+               <span>
+                  <label>First Name:</label>
+                  <input 
+                     name='firstName'
+                     type='text'
+                     value={firstName}
+                     onChange={this.handleInputChange}
+                  />
+               </span>
+               <span>
+                  <label>Last Name:</label>
+                  <input
+                     name='lastName'
+                     type='text'
+                     value={lastName}
+                     onChange={this.handleInputChange}
+                  />
+               </span>
+               <span>
+                  <label>Message:</label>
+                  <textarea
+                     name='userEmailBody'
+                     value={userEmailBody}
+                     placeholder='Please fill out all fields before submitting.'
+                     onChange={this.handleInputChange}
+                  />
+               </span>
                <button onClick={this.handleSubmit}>Send</button>
             </form>
          </div>

@@ -97,59 +97,61 @@ class BarterOffer extends Component {
 
       const{offerStatus} = this.props;
 
-      const newOfferNotice = 'Clicking "Tag!" will start your offer and send any message you enter. The other person must respond before you can send another message. That\'s Barter Tag!'
+      const newOfferNotice = 'Clicking "Tag!" will start your offer and send any message you enter. The other person must respond before you can send another message. That\'s BarterTag!'
 
       return (
-         <div>
-            <h1>BarterOffer</h1>
+         <>
+            <h5>Messages are nice!</h5>
             <form>
-               <label htmlFor='userMessage'>Message (75 char max):</label>
-               <input 
-                  type='text'
-                  maxLength='75'
-                  placeholder='Optional Message: 75 characters max'
-                  onChange={this.handleInputChange}
-                  value={this.state.userMessage}
-                  name='userMessage'
-                  id='userMessage'
-               />
-
-               {this.props.offerStatus === 'pending'
-               ?
-                  <select 
+               <span>
+                  <input 
+                     type='text'
+                     maxLength='75'
+                     placeholder='Message: 75 chars max'
                      onChange={this.handleInputChange}
-                     value={this.state.closeRemark}
-                     name='closeRemark'
+                     value={this.state.userMessage}
+                     name='userMessage'
+                     id='userMessage'
+                  />
+
+                  <select
+                     onChange={this.handleInputChange}
+                     value={this.state.userMessageRemark}
+                     name='userMessageRemark'
                   >
-                     <option value='' disabled>Optional: Close offer?</option>
+                     <option value='' disabled>Optional Remark:</option>
                      <option value=''></option>
-                     <option value='Not Interested'>Not Interested</option>
-                     <option value='Cannot Reach Agreement'>Cannot Reach Agreement</option>
-                     <option value='Barter Trade Made'>Barter Trade Made</option>
+                     <option value='Tell me more about the specs.'>Tell me more about the specs.</option>
+                     <option value='Tell me more about features.'>Tell me more about features.</option>
+                     <option value='How do you use the item?'>How do you use the item?</option>
+                     <option value='What are the flaws/issues with the item?'>What are the flaws/issues with the item?</option>
+                     <option value='How many owners has the item had?'>How many owners has the item had?</option>
+                     <option value='I have gotten a better offer.'>I have gotten a better offer.</option>
+                     <option value='Not interested. Thanks.'>Not interested. Thanks.</option>
+                     <option value='Not interested. What else can you offer?'>Not interested. What else can you offer?</option>
                   </select>
-               : null }
-               
-               <select
-                  onChange={this.handleInputChange}
-                  value={this.state.userMessageRemark}
-                  name='userMessageRemark'
-               >
-                  <option value='' disabled>Optional Remark:</option>
-                  <option value=''></option>
-                  <option value='Tell me more about the specs.'>Tell me more about the specs.</option>
-                  <option value='Tell me more about features.'>Tell me more about features.</option>
-                  <option value='How do you use the item?'>How do you use the item?</option>
-                  <option value='What are the flaws/issues with the item?'>What are the flaws/issues with the item?</option>
-                  <option value='How many owners has the item had?'>How many owners has the item had?</option>
-                  <option value='I have gotten a better offer.'>I have gotten a better offer.</option>
-                  <option value='Not interested. Thanks.'>Not interested. Thanks.</option>
-                  <option value='Not interested. What else can you offer?'>Not interested. What else can you offer?</option>
-               </select>
+
+                  {this.props.offerStatus === 'pending'
+                  ?
+                     <select 
+                        onChange={this.handleInputChange}
+                        value={this.state.closeRemark}
+                        name='closeRemark'
+                     >
+                        <option value='' disabled>Optional: Close offer?</option>
+                        <option value=''></option>
+                        <option value='Not Interested'>Not Interested</option>
+                        <option value='Cannot Reach Agreement'>Cannot Reach Agreement</option>
+                        <option value='Barter Trade Made'>Barter Trade Made</option>
+                     </select>
+                  : null }
+               </span>
+
                {offerStatus === 'new' ? <p>{newOfferNotice}</p> : null }
                
                <button onClick={this.handleTagButton}>Tag!</button>
             </form>
-         </div>
+         </>
       );
    }
 }

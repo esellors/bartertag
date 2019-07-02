@@ -188,78 +188,92 @@ class RegisterUpdateUser extends Component {
    }
    render() {
       return (
-         <div>
+         <div id='register_update_user'>
             {
                this.props.isLoggedIn
                ?
-                  <h1>Update Information</h1>
+                  <h5>Update Information</h5>
                :
-                  <h1>Register</h1>
+                  <h5>Register</h5>
             }
-            <form>
-               <label htmlFor='register-firstname'>first name</label>
-               <input 
-                  disabled={this.state.editFieldsDisabled}
-                  name='firstName' 
-                  id='register-firstname'
-                  value={this.state.firstName}
-                  onChange={this.handleInputChange}
-               />
+            <form className='input_form'>
+               <span>
+                  <label htmlFor='register-firstname'>first name</label>
+                  <input 
+                     disabled={this.state.editFieldsDisabled}
+                     name='firstName' 
+                     id='register-firstname'
+                     value={this.state.firstName}
+                     onChange={this.handleInputChange}
+                  />
+               </span>
 
-               <label htmlFor='register-lastname'>last name</label>
-               <input 
-                  disabled={this.state.editFieldsDisabled}
-                  name='lastName' 
-                  id='register-lastname'
-                  value={this.state.lastName}
-                  onChange={this.handleInputChange}
-               />
+               <span>
+                  <label htmlFor='register-lastname'>last name</label>
+                  <input 
+                     disabled={this.state.editFieldsDisabled}
+                     name='lastName' 
+                     id='register-lastname'
+                     value={this.state.lastName}
+                     onChange={this.handleInputChange}
+                  />
+               </span>
 
-               <label htmlFor='register-username'>username</label>
-               <input 
-                  disabled={this.state.editFieldsDisabled}
-                  name='username' 
-                  id='register-username'
-                  value={this.state.username}
-                  onChange={this.handleInputChange}
-               />
+               <span>
+                  <label htmlFor='register-username'>username</label>
+                  <input 
+                     disabled={this.state.editFieldsDisabled}
+                     name='username' 
+                     id='register-username'
+                     value={this.state.username}
+                     onChange={this.handleInputChange}
+                  />
+               </span>
 
-               <label htmlFor='register-email'>email</label>
-               <input 
-                  disabled={this.state.editFieldsDisabled}
-                  name='email' 
-                  type='email'
-                  id='register-email'
-                  value={this.state.email}
-                  onChange={this.handleInputChange}
-               />
+               <span>
+                  <label htmlFor='register-email'>email</label>
+                  <input 
+                     disabled={this.state.editFieldsDisabled}
+                     name='email' 
+                     type='email'
+                     id='register-email'
+                     value={this.state.email}
+                     onChange={this.handleInputChange}
+                  />
+               </span>
 
-               <label htmlFor='register-city'>city</label>
-               <input 
-                  disabled={this.state.editFieldsDisabled}
-                  name='city' 
-                  id='register-city'
-                  value={this.state.city}
-                  onChange={this.handleInputChange}
-               />
+               <span>
+                  <label htmlFor='register-city'>city</label>
+                  <input 
+                     disabled={this.state.editFieldsDisabled}
+                     name='city' 
+                     id='register-city'
+                     value={this.state.city}
+                     onChange={this.handleInputChange}
+                  />
+               </span>
 
-               <label htmlFor='register-state'>state</label>
-               <SelectStateDropdown 
-                  disabled={this.state.editFieldsDisabled}
-                  value={this.state.state}
-                  handleInputChange={this.handleInputChange} 
-               />
+               <span>
+                  <label htmlFor='register-state'>state</label>
+                  <SelectStateDropdown 
+                     disabled={this.state.editFieldsDisabled}
+                     value={this.state.state}
+                     handleInputChange={this.handleInputChange} 
+                  />
+               </span>
 
-               <label htmlFor='register-password'>Password</label>
-               <input 
-                  disabled={this.state.editFieldsDisabled}
-                  placeholder={this.props.isLoggedIn ? 'Blank to keep current PW' : '8 characters minimum'}
-                  name='password' 
-                  id='register-password'
-                  maxLength='40'
-                  value={this.state.password}
-                  onChange={this.handleInputChange}
-               />
+               <span>
+                  <label htmlFor='register-password'>Password</label>
+                  <input 
+                     disabled={this.state.editFieldsDisabled}
+                     placeholder={this.props.isLoggedIn ? 'Blank to keep current PW' : '8 characters minimum'}
+                     name='password' 
+                     id='register-password'
+                     maxLength='40'
+                     value={this.state.password}
+                     onChange={this.handleInputChange}
+                  />
+               </span>
                {
                   this.state.formValidationErrors.length > 0
                   ?

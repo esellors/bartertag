@@ -1,0 +1,344 @@
+// variables
+$headerPrimaryColor: #000;
+$textPrimaryColor: rgb(51, 50, 50);
+$linkPrimaryColor: rgb(153, 40, 147);
+$linkFocusColor: rgb(82, 36, 79);
+$borderPrimaryColor: rgb(139, 134, 134);
+
+// mixins
+@mixin textEmphasis {
+   color: #000;
+   font-weight: 800;
+}
+
+@mixin formTemplate {
+   display: flex;
+   flex-direction: column;
+
+   h3 {
+      margin-bottom: .5em;
+      align-self: center;
+   }
+
+   span {
+      margin-bottom: 2em;
+      display: flex;
+      justify-content: space-between;
+   }
+
+   label {
+      width: 40%;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.5);
+   }
+
+   input, textarea {
+      width: 55%;
+   }
+
+   textarea {
+      min-height: 125px;
+   }
+}
+
+@mixin cardLayout {
+   margin-bottom: .5em;
+   padding:.25em;
+   box-sizing: border-box;
+   background: #fff;
+   border: 1px solid;
+   border-color: $borderPrimaryColor;
+   box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.25);
+}
+
+// default styles
+h1, h2, h3, h4, h5 {
+   color: $headerPrimaryColor;
+   margin-top: .3em;
+   margin-bottom: .3em;
+}
+
+p, li, a, button {
+   color: $textPrimaryColor;
+   margin-top: .5em;
+   margin-bottom: .5em;
+}
+
+h1 { font-size: 3em; }
+h2 { font-size: 2.5em; }
+h3 { font-size: 2em; font-weight: 600; }
+h4 { font-size: 1.5em; font-weight: 800; }
+h5 { font-size: 1.25em; font-weight: 900; }
+p, li, a { font-size: 1em; }
+a { 
+   font-weight: 900;
+   color: $linkPrimaryColor;
+   text-decoration: none; 
+
+   &:hover, &:active {
+      color: $linkFocusColor;
+      font-weight: 800;
+   }
+}
+
+// page sections
+#routes_top_container {
+   width: 100vw;
+   min-height: 80vh;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   background: linear-gradient( rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65) ), url(../assets/bg_guest_landing.jpg) no-repeat center center;
+   background-size: cover;
+   background-color: #000;
+
+   #header_container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      header {
+         width: 500px;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         
+         h2, h3 {
+            text-align: center;
+         }
+         
+         #site-tag {
+            width: 100%;
+            display: flex;
+            margin-top: .5em;
+            margin-bottom: .75em;
+            justify-content: space-around;
+            align-items: baseline;
+         }
+         
+         #loginlogout_loggedout {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+      
+            span {
+               margin-bottom: .5em;
+               display: flex;
+               justify-content: space-between;
+            }
+         }
+
+         #loginlogout_loggedin {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+         }
+      }
+   }
+
+   main {
+      width: 500px;
+      min-width: 500px;
+      padding-bottom: 1em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      img {
+         width: 150px;
+         margin-top: 1em;
+         margin-bottom: 1em;
+      }
+
+      .dashboard {
+         width: 100%;
+         margin-top: .40em;
+         margin-bottom: .40em;
+         display: flex;
+         justify-content: space-around;      
+      }
+
+      #guest_landing {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         
+         p {
+            padding: 5px;
+            color: #fff;
+            line-height: 1.5em;
+            background: rgba(0, 0, 0, 0.5);
+         }
+   
+         .guest_site_desc {
+            width: 80%;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            text-align: center;
+         }
+   
+         .guest_info {
+            display: flex;
+            flex-direction: column;
+   
+            p {
+               align-self: flex-end;
+            }
+         }
+   
+         .second_register_invite {
+            margin-top: 2em;
+            font-weight: 600;
+         }
+      }
+
+      #browse {
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: space-around;
+
+         .categories {
+            @include cardLayout;
+
+            width: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+
+            .category_item {
+               text-align: center;
+
+               img {
+                  width: 90%;
+                  margin-top: 0;
+                  margin-bottom: 0;
+               }
+            }
+         }
+      }
+
+      .product_summary {
+         @include cardLayout;
+
+         width: 100%;
+         display: flex;
+
+         .img_container {
+            width: 150px;
+            margin-right: 1em;
+            box-sizing: border-box;
+            background: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+         }
+
+         .item_info {
+            min-width: 300px;
+            margin-bottom: 1em;
+            display: flex;
+            flex-direction: column;
+
+            button {
+               align-self: flex-end;
+               justify-self: flex-end;
+            }
+         }
+      }
+
+      .barter_section {
+         @include cardLayout;
+         @include formTemplate;
+
+         display: flex;
+         flex-direction: column;
+
+         & > button {
+            align-self: center;
+         }
+
+         .select_barter_item {
+            width: 215px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            p {
+               width: 225px;
+            }
+
+         }
+      }
+
+      #inventory_dashboard {
+         width: 100%;
+         display: flex;
+         justify-content: space-around;
+      }
+
+      .inventory_item {
+         @include cardLayout;
+
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+      }
+
+      .input_form {
+         @include formTemplate;
+         width: 70%;
+      }
+
+      #register_update_user {
+         width: 100%;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+      }
+
+      .footer_linked_component {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+      }
+   }
+}
+
+#footer_container {
+   width: 100%;
+
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+
+   footer {
+      width: 500px;
+      padding: 1em 2.5em 1em;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      p {
+         @include textEmphasis;
+      }
+
+      span {
+         width: 90%;
+
+         ul {
+            display: flex;
+            flex-direction: column;
+         }
+      }
+      
+      ul {
+         width: 100%;
+         margin-top: 1.5em;
+         display: flex;
+         justify-content: space-between;
+      }
+   }
+}

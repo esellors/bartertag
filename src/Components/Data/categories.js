@@ -3,90 +3,90 @@ export const categories = [
       name: 'Baby',
       value: 'baby',
       link: 'baby',
-      img: 'shopping_bag.jpg'
+      img: '015-baby.png'
    },
    {
       name: 'Beauty',
       value: 'beauty',
       link: 'beauty',
-      img: 'shopping_bag.jpg'
+      img: '002-makeover.png'
    },
    {
       name: 'Clothing',
       value: 'clothing',
       link: 'clothing',
-      img: 'shopping_bag.jpg'
+      img: '003-coat.png'
    },
    {
       name: 'Computer',
       value: 'computer',
       link: 'computer',
-      img: 'shopping_bag.jpg'
+      img: '004-student.png'
    },
    {
       name: 'Electronics',
       value: 'electronics',
       link: 'electronics',
-      img: 'shopping_bag.jpg'
+      img: '005-indoor-antenna.png'
    },
    {
       name: 'Fitness',
       value: 'fitness',
       link: 'fitness',
-      img: 'shopping_bag.jpg'
+      img: '006-athlete.png'
    },
    {
       name: 'Furniture',
       value: 'furniture',
       link: 'furniture',
-      img: 'shopping_bag.jpg'
+      img: '007-armchair.png'
    },
    {
       name: 'Health',
       value: 'health',
       link: 'health',
-      img: 'shopping_bag.jpg'
+      img: '008-healthy.png'
    },
    {
       name: 'Home Accessories',
       value: 'home_accessories',
       link: 'homeaccessories',
-      img: 'shopping_bag.jpg'
+      img: '009-house.png'
    },
    {
       name: 'Jewelry',
       value: 'jewelry',
       link: 'jewelry',
-      img: 'shopping_bag.jpg'
+      img: '010-necklace.png'
    },
    {
       name: 'Office',
       value: 'office',
       link: 'office',
-      img: 'shopping_bag.jpg'
+      img: '011-attached.png'
    },
    {
       name: 'Outdoor',
       value: 'outdoor',
       link: 'outdoor',
-      img: 'shopping_bag.jpg'
+      img: '012-tent.png'
    },
    {
       name: 'Tools',
       value: 'tools',
       link: 'tools',
-      img: 'shopping_bag.jpg'
+      img: '013-measuring-tape.png'
    },
    {
       name: 'Toys',
       value: 'toys',
       link: 'toys',
-      img: 'shopping_bag.jpg'
+      img: '014-robot.png'
    },
    {
       name: 'Other',
       value: 'other',
       link: 'other',
-      img: 'shopping_bag.jpg'
+      img: '016-question.png'
    }
 ];

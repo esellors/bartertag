@@ -2,34 +2,35 @@ require('dotenv').config();
 const nodemailer = require('nodemailer');
 
 const contact = function(req, res) {
-   console.log(req.body)
+   const {firstName, lastName, userEmailAddress, userEmailBody} = req.body;
+   const {EMAIL_HOST, EMAIL_NAME, EMAIL_PW} = process.env;
 
    const transport = {
-       host: 'mail.privateemail.com',
-       auth: {
-           user: process.env.EMAIL_NAME,
-           pass: process.env.EMAIL_PW
-       }
-     }
+      host: EMAIL_HOST,
+      auth: {
+         user: EMAIL_NAME,
+         pass: EMAIL_PW
+      }
+   };
+
    const transporter = nodemailer.createTransport(transport);
 
-   const {firstName, lastName, userEmailAddress, userEmailBody} = req.body;
+   const helperOptions = {
+      from: process.env.EMAIL_NAME,
+      to: process.env.EMAIL_NAME,
+      subject: `BarterTag Support Message from ${firstName} ${lastName}, ${userEmailAddress}`,
+      text: userEmailBody,
+      replyTo: userEmailAddress
+   };
    
-   const mail = {
-       from: process.env.EMAIL_NAME,
-       to: process.env.EMAIL_NAME,
-       subject: `BarterTag Support Message from ${firstName} ${lastName}, ${userEmailAddress}`,
-       text: userEmailBody,
-       replyTo: userEmailAddress
-   }
-   
-   transporter.sendMail(mail, (err, data) => {
+   transporter.sendMail(helperOptions, (err, success) => {
       if (err) {
          console.log(err);
          res.send( 'Failed to send message.' );
-       } else {
+      } else {
+         console.log(success);
          res.send( 'Message sent successfully!' );
-       };
+      };
    })
 }
 

@@ -21,6 +21,8 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+app.use( express.static( `${__dirname}/../build` ) );
+
 const transporter = nodemailer.createTransport(
    {
       host: EMAIL_HOST,

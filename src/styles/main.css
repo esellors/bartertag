@@ -1,13 +1,20 @@
+@import url("https://fonts.googleapis.com/css?family=Barriecito|Patrick+Hand&display=swap");
 h1, h2, h3, h4, h5 {
-  color: #000;
   margin-top: .3em;
   margin-bottom: .3em;
+  color: #000;
+  font-family: "Barriecito", cursive;
 }
 
-p, li, a, button {
-  color: #333232;
+p, li, a, label, button {
   margin-top: .5em;
   margin-bottom: .5em;
+  color: #333232;
+  font-family: "Patrick Hand", cursive;
+}
+
+input {
+  font-family: "Patrick Hand", cursive;
 }
 
 h1 {
@@ -46,6 +53,13 @@ a {
 a:hover, a:active {
   color: #52244f;
   font-weight: 800;
+}
+
+button {
+  background: #9de48c;
+  border: none;
+  border-radius: 10%;
+  cursor: pointer;
 }
 
 #routes_top_container {
@@ -104,9 +118,19 @@ a:hover, a:active {
   margin-bottom: .75em;
   -ms-flex-pack: distribute;
       justify-content: space-around;
-  -webkit-box-align: baseline;
-      -ms-flex-align: baseline;
-          align-items: baseline;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#routes_top_container #header_container header #site-tag img {
+  width: 100px;
+}
+
+#routes_top_container #header_container header #site-tag span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 #routes_top_container #header_container header #loginlogout_loggedout {
@@ -153,6 +177,22 @@ a:hover, a:active {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+#routes_top_container main .new_notification {
+  display: inline-block;
+  padding: .5em;
+  color: #f5ff70;
+  font-size: .5em;
+  font-weight: 800;
+  background: #3b3a3a;
+  border-radius: 50%;
+  position: relative;
+  left: -25px;
+  -webkit-transform: rotate(20deg) translateY(-10px);
+          transform: rotate(20deg) translateY(-10px);
+  -webkit-box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.75);
+          box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.75);
 }
 
 #routes_top_container main img {
@@ -326,6 +366,7 @@ a:hover, a:active {
   border-color: #8b8686;
   -webkit-box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.25);
           box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.25);
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -361,7 +402,7 @@ a:hover, a:active {
 }
 
 #routes_top_container main .barter_section input, #routes_top_container main .barter_section textarea {
-  width: 55%;
+  width: 60%;
 }
 
 #routes_top_container main .barter_section textarea {
@@ -389,6 +430,48 @@ a:hover, a:active {
 
 #routes_top_container main .barter_section .select_barter_item p {
   width: 225px;
+}
+
+#routes_top_container main .offers_dashboard ul {
+  width: 500px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+#routes_top_container main .offers_detail_section {
+  width: 500px;
+  padding-top: .5em;
+  padding-left: 1em;
+  padding-right: 1em;
+  background: #fff;
+}
+
+#routes_top_container main .offers_detail {
+  margin-bottom: .5em;
+  padding: .25em;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: #fff;
+  border: 1px solid;
+  border-color: #8b8686;
+  -webkit-box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.25);
+}
+
+#routes_top_container main .closed_offers .offer_closed {
+  margin-bottom: .5em;
+  padding: .25em;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: #fff;
+  border: 1px solid;
+  border-color: #8b8686;
+  -webkit-box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.25);
+  background: #e0b3b3;
 }
 
 #routes_top_container main #inventory_dashboard {
@@ -423,6 +506,7 @@ a:hover, a:active {
 }
 
 #routes_top_container main .input_form {
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -430,7 +514,6 @@ a:hover, a:active {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  width: 70%;
 }
 
 #routes_top_container main .input_form h3 {
@@ -457,7 +540,7 @@ a:hover, a:active {
 }
 
 #routes_top_container main .input_form input, #routes_top_container main .input_form textarea {
-  width: 55%;
+  width: 60%;
 }
 
 #routes_top_container main .input_form textarea {
@@ -465,7 +548,16 @@ a:hover, a:active {
 }
 
 #routes_top_container main #register_update_user {
-  width: 100%;
+  margin-bottom: .5em;
+  padding: .25em;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: #fff;
+  border: 1px solid;
+  border-color: #8b8686;
+  -webkit-box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.25);
+  width: 500px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -550,5 +642,150 @@ a:hover, a:active {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+
+@media only screen and (min-width: 800px) {
+  h1, h2, h3, h4, h5 {
+    margin-top: .5em;
+    margin-bottom: .5em;
+  }
+  p, li, a, label, button {
+    margin-top: .7em;
+    margin-bottom: .7em;
+  }
+  h1 {
+    font-size: 4em;
+  }
+  h2 {
+    font-size: 3em;
+  }
+  h3 {
+    font-size: 2.25em;
+  }
+  h4 {
+    font-size: 1.75em;
+  }
+  h5 {
+    font-size: 1.5em;
+  }
+  p, li, a {
+    font-size: 1em;
+  }
+  #routes_top_container #header_container {
+    width: 800px;
+  }
+  #routes_top_container #header_container header {
+    width: 800px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  #routes_top_container #header_container header #site-tag {
+    width: 300px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  #routes_top_container #header_container header #site-tag h3 {
+    margin-top: 0;
+  }
+  #routes_top_container main {
+    width: 800px;
+  }
+  #routes_top_container main #guest_landing {
+    width: 800px;
+  }
+  #routes_top_container main #guest_landing .guest_info_section {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  #routes_top_container main #register_update_user {
+    width: 800px;
+  }
+  #routes_top_container main #browse {
+    width: 800px;
+  }
+  #routes_top_container main .offers_container {
+    width: 800px;
+  }
+  #routes_top_container main .offers_container .offers_detail_section {
+    width: 800px;
+  }
+  #routes_top_container main .offers_container .offers_detail_section span {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+  #routes_top_container main .offers_container .offers_detail_section .offers_detail {
+    width: 375px;
+  }
+  #routes_top_container main .inventory_item {
+    width: 600px;
+  }
+  #routes_top_container main .update_inventory_submit_section {
+    width: 400px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  #routes_top_container main .update_inventory_submit_section .update_inv_btns {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+  #footer_container footer {
+    width: 800px;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  #footer_container footer > span {
+    width: 350px;
+  }
+  #footer_container footer > ul {
+    width: 150px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+  }
+  #footer_container footer > ul li {
+    width: 100%;
+  }
 }
 /*# sourceMappingURL=main.css.map */

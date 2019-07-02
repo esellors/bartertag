@@ -13,8 +13,7 @@ class OffersDashboard extends Component {
    }
    render() {
       return (
-         <div>
-            <h1>OffersDashboard</h1>
+         <div className='offers_dashboard'>
             <ul>
                <li><Link to='/offers'>Open Offers</Link></li>
                <li><Link to='/offers/closed'>Closed Offers</Link></li>

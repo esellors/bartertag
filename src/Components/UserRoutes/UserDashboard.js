@@ -4,12 +4,18 @@ import {connect} from 'react-redux';
 
 function Dashboard(props) {
 
-   const notifications = props.notifications ? 'NEW OFFERS' : 'Offers';
+   const newNotifications = props.notifications 
+   ? <div className='new_notification'>NEW!</div>
+   : null;
 
    return (
       <ul className='dashboard'>
          <li><Link to='/browse'>Browse</Link></li>
-         <li><Link to='/offers'>{notifications}</Link></li>
+         <li>
+            <Link to='/offers'>
+               Offers{newNotifications}
+            </Link>
+         </li>
          <li><Link to='/inventory'>Inventory</Link></li>
          <li><Link to='/userpreferences'>Preferences</Link></li>
       </ul>

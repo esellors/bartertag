@@ -1,4 +1,9 @@
+// fonts
+@import url('https://fonts.googleapis.com/css?family=Barriecito|Patrick+Hand&display=swap');
+
 // variables
+$mainFont: 'Patrick Hand', cursive;
+$headerFont: 'Barriecito', cursive;
 $headerPrimaryColor: #000;
 $textPrimaryColor: rgb(51, 50, 50);
 $linkPrimaryColor: rgb(153, 40, 147);
@@ -12,6 +17,7 @@ $borderPrimaryColor: rgb(139, 134, 134);
 }
 
 @mixin formTemplate {
+   width: 100%;
    display: flex;
    flex-direction: column;
 
@@ -33,7 +39,7 @@ $borderPrimaryColor: rgb(139, 134, 134);
    }
 
    input, textarea {
-      width: 55%;
+      width: 60%;
    }
 
    textarea {
@@ -53,15 +59,21 @@ $borderPrimaryColor: rgb(139, 134, 134);
 
 // default styles
 h1, h2, h3, h4, h5 {
-   color: $headerPrimaryColor;
    margin-top: .3em;
    margin-bottom: .3em;
+   color: $headerPrimaryColor;
+   font-family: $headerFont;
 }
 
-p, li, a, button {
-   color: $textPrimaryColor;
+p, li, a, label, button {
    margin-top: .5em;
    margin-bottom: .5em;
+   color: $textPrimaryColor;
+   font-family: $mainFont;
+}
+
+input {
+   font-family: $mainFont;
 }
 
 h1 { font-size: 3em; }
@@ -79,6 +91,13 @@ a {
       color: $linkFocusColor;
       font-weight: 800;
    }
+}
+
+button {
+   background: rgb(157, 228, 140);
+   border: none;
+   border-radius: 10%;
+   cursor: pointer;
 }
 
 // page sections
@@ -102,7 +121,7 @@ a {
          display: flex;
          flex-direction: column;
          align-items: center;
-         
+
          h2, h3 {
             text-align: center;
          }
@@ -113,7 +132,15 @@ a {
             margin-top: .5em;
             margin-bottom: .75em;
             justify-content: space-around;
-            align-items: baseline;
+            align-items: center;
+            
+            img {
+               width: 100px;
+            }
+
+            span {
+               display: flex;
+            }
          }
          
          #loginlogout_loggedout {
@@ -136,6 +163,8 @@ a {
       }
    }
 
+
+
    main {
       width: 500px;
       min-width: 500px;
@@ -143,6 +172,20 @@ a {
       display: flex;
       flex-direction: column;
       align-items: center;
+
+      .new_notification {
+         display: inline-block;
+         padding: .5em;
+         color: rgb(245, 255, 112);
+         font-size: .5em;
+         font-weight: 800;
+         background: rgb(59, 58, 58);
+         border-radius: 50%;
+         position: relative;
+         left: -25px;
+         transform: rotate(20deg) translateY(-10px);
+         box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.75);
+      }
 
       img {
          width: 150px;
@@ -272,6 +315,34 @@ a {
          }
       }
 
+      .offers_dashboard {
+
+         ul {
+            width: 500px;
+            display: flex;
+            justify-content: space-around;
+         }
+      }
+
+      .offers_detail_section {
+         width: 500px;
+         padding-top: .5em;
+         padding-left: 1em;
+         padding-right: 1em;
+         background: #fff;
+      }
+
+      .offers_detail {
+         @include cardLayout;
+      }
+
+      .closed_offers {
+         .offer_closed {
+            @include cardLayout;
+            background: rgb(224, 179, 179);
+         }
+      }
+
       #inventory_dashboard {
          width: 100%;
          display: flex;
@@ -288,11 +359,12 @@ a {
 
       .input_form {
          @include formTemplate;
-         width: 70%;
       }
 
       #register_update_user {
-         width: 100%;
+         @include cardLayout;
+
+         width: 500px;
          display: flex;
          flex-direction: column;
          align-items: center;
@@ -342,3 +414,128 @@ a {
       }
    }
 }
+
+@media only screen and (min-width: 800px) {
+   // adjust defaults
+   h1, h2, h3, h4, h5 {
+      margin-top: .5em;
+      margin-bottom: .5em;
+   }
+   
+   p, li, a, label, button {
+      margin-top: .7em;
+      margin-bottom: .7em;
+   }
+
+   h1 { font-size: 4em; }
+   h2 { font-size: 3em; }
+   h3 { font-size: 2.25em; }
+   h4 { font-size: 1.75em; }
+   h5 { font-size: 1.5em; }
+   p, li, a { font-size: 1em; }
+
+   // adjust sections
+   #routes_top_container {
+      
+      
+      #header_container {
+         width: 800px;
+   
+         header {
+            width: 800px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;     
+
+            #site-tag {
+               width: 300px;
+               flex-direction: column;
+   
+               h3 {
+                  margin-top: 0;
+               }
+            }
+         }
+
+      }
+   
+      main {
+         width: 800px;
+   
+         #guest_landing {
+            width: 800px;
+   
+            .guest_info_section {
+               width: 100%;
+               display: flex;
+               flex-direction: row;
+               justify-content: space-between;
+            }
+         }
+
+         #register_update_user {
+            width: 800px;
+         }
+   
+         #browse {
+            width: 800px;
+         }
+
+         .offers_container {
+            width: 800px;
+            
+            .offers_detail_section {
+               width: 800px;
+
+               span {
+                  display: flex;
+                  justify-content: space-around;
+                  flex-wrap: wrap;
+               }
+
+               .offers_detail {
+                  width: 375px;
+               }
+            }
+         }
+
+         .inventory_item {
+            width: 600px;
+         }
+         
+         .update_inventory_submit_section {
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+
+            .update_inv_btns {
+               display: flex;
+               justify-content: space-around;
+            }
+         }
+      }
+   }
+
+   #footer_container {
+      footer {
+         width: 800px;
+         flex-direction: row;
+         justify-content: space-around;
+         align-items: center;
+
+         & > span {
+            width: 350px;
+         }
+
+         & > ul{
+            width: 150px;
+            flex-direction: column-reverse;
+
+            li {
+               width: 100%;
+            }
+        }
+      }
+   }
+ }

@@ -11,7 +11,7 @@ export default function Landing() {
             </h5>
          </span>
 
-         <span>
+         <span className='guest_info_section'>
             <span className='guest_info'>
                <h1>BROWSE</h1>
                <p>...your favorite categories</p>

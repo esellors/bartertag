@@ -80,7 +80,7 @@ class Product extends Component {
                   >
                      {toggleBarterOffer ? 'Cancel' : 'Start Barter Tag!'}
                   </button>
-               : null
+               : 'You cannot make an offer for your own item.'
                }
                
                {toggleBarterOffer ? (

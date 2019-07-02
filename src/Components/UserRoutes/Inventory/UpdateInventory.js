@@ -44,6 +44,7 @@ class UpdateInventory extends Component {
    
             this.setState({
                uneditedItemInfo: {item_category, item_condition, item_desc, item_name, img_aws_key, selectedImgFileUrl: img_aws_url},
+               formValidationErrors: [],
                item_category, item_condition, item_desc, item_name,
                selectedImgFileUrl: img_aws_url,
             })
@@ -233,7 +234,7 @@ class UpdateInventory extends Component {
       })
 
       return (
-         <form>
+         <form className='inventory_item'>
             {
                this.props.match.params
                ?
@@ -349,7 +350,7 @@ class UpdateInventory extends Component {
                </div>
             </div>
 
-            <div>
+            <div className='update_inventory_submit_section'>
                <span>
                   {
                      this.state.formValidationErrors.length > 0
@@ -359,21 +360,21 @@ class UpdateInventory extends Component {
                      :  null
                   }
                </span>
-               <span>
-                  {
-                     this.props.match.params.itemId // if true, then edit mode
-                     ?
-                        <>
-                           <button onClick={this.setTargetItemValues}>Clear Changes</button>
-                           <button name='saveChangesBtn' disabled={this.state.submitDisabled} onClick={this.submitItemHandler}>Save</button>
-                        </>
-                     :
-                        <>
-                           <button onClick={this.clearFormHandler}>Clear All</button>
-                           <button disabled={this.state.submitDisabled} onClick={this.submitItemHandler}>Add Item</button>
-                        </>
-                  }
-               </span>
+
+               {
+                  this.props.match.params.itemId // if true, then edit mode
+                  ?
+                     <span className='update_inv_btns'>
+                        <button onClick={this.setTargetItemValues}>Clear Changes</button>
+                        <button name='saveChangesBtn' disabled={this.state.submitDisabled} onClick={this.submitItemHandler}>Save</button>
+                     </span>
+                  :
+                     <span className='update_inv_btns'>
+                        <button onClick={this.clearFormHandler}>Clear All</button>
+                        <button disabled={this.state.submitDisabled} onClick={this.submitItemHandler}>Add Item</button>
+                     </span>
+               }
+
             </div>
          </form>
       );

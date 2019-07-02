@@ -18,7 +18,7 @@ class ClosedOffers extends Component {
                const finalizingUser = userId === finalizing_user_id ? 'You' : username;
 
                return (
-                  <div key={`${offer_id}-${Date.now()}`}>
+                  <div className='offer_closed' key={`${offer_id}-${Date.now()}`}>
                      <p>Barter Tag with {username} from {city}, {state}.</p>
                      <p>Tag closed by {finalizingUser} on {time_finalized}.</p>
                      <p>Closing Tag Remark: {finalizing_remark}</p>
@@ -39,7 +39,7 @@ class ClosedOffers extends Component {
             const finalizingUser = userId === finalizing_user_id ? 'You' : username;
 
             return (
-               <div key={`${offer_id}-${Date.now()}`}>
+               <div className='offer_closed' key={`${offer_id}-${Date.now()}`}>
                   <p>Barter Tag with {username} from {city}, {state}.</p>
                   <p>Tag closed by {finalizingUser} on {time_finalized}.</p>
                   <p>Closing Tag Remark: {finalizing_remark}</p>
@@ -50,11 +50,11 @@ class ClosedOffers extends Component {
       : 'No Closed Barter Tags to Show.'
 
       return (
-         <div>
-            <h1>Closed Offers that You Started</h1>
+         <div className='closed_offers'>
+            <h5>Closed Offers that You Started</h5>
             {closedOffersAsPrimaryMapped}
 
-            <h1>Closed Offers Others Started</h1>
+            <h5>Closed Offers Others Started</h5>
             {closedOffersAsSecondaryMapped}
          </div>
       );

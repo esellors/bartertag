@@ -4,4 +4,4 @@ INNER JOIN users u ON o.primary_user_id = u.user_id
 INNER JOIN location l ON u.location_id = l.location_id
 INNER JOIN offer_message om ON o.offer_id = om.offer_id
 WHERE o.secondary_user_id = $1 AND o.offer_status = $2
-ORDER BY om.time_of_message DESC
+ORDER BY om.time_of_message DESC;

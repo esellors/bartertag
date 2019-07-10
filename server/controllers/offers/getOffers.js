@@ -7,7 +7,7 @@ const getOffers = async function(req, res) {
    try {
       newOffers = await db.get_offers_as_secondary(userId, 'new');
    
-      pendingOffersAsPrimary = await db.get_offers_open_as_primary(userId);
+      pendingOffersAsPrimary = await db.get_offers_as_primary(userId, 'pending');
    
       pendingOffersAsSecondary = await db.get_offers_as_secondary(userId, 'pending');
    

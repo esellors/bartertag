@@ -1,5 +1,6 @@
 const detailsDelete = async function (req, res) {
-   const {dbId} = req.body;
+
+   const dbId = parseInt(req.body.dbId);
 
    const db = await req.app.get('db');
 

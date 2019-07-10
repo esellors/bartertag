@@ -79,7 +79,7 @@ class ViewInventory extends Component {
             };
 
             return (
-               <div class='inventory_item' key={i}>
+               <div className='inventory_item' key={i}>
 
                   {barterMode ? null : (
                      <>
@@ -100,7 +100,7 @@ class ViewInventory extends Component {
                   )}
 
                   {barterMode ? (
-                     <div class='select_barter_item'>
+                     <div className='select_barter_item'>
                         <p>Offer this item:</p>
                         <input 
                            type='checkbox'

@@ -91,7 +91,6 @@ button {
 }
 
 #routes_top_container #header_container header {
-  width: 500px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -163,7 +162,6 @@ button {
 }
 
 #routes_top_container main {
-  width: 500px;
   min-width: 500px;
   padding-bottom: 1em;
   display: -webkit-box;

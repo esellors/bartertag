@@ -12,30 +12,28 @@ import Footer from './Components/CommonRoutes/Footer';
 function App(props) {
 
   return (
-    <div>
-      {
-        props.isLoggedIn
-        ?
-          <>
-            <div id='routes_top_container'>
-              <Header />
-              <main>
-                <UserDashboard />
-                {userRoutes}
-              </main>
-            </div>
-          </>
-        :
-          <div id='routes_top_container'>
-            <Header />
-            <main>
-              <GuestDashboard />
-              {guestRoutes}
-            </main>
-          </div>
-      }
+    <>
+      <div id='routes_top_container'>
+        <Header />
+        <main>
+          {
+            props.isLoggedIn
+              ? (
+                <>
+                  <UserDashboard />
+                  {userRoutes}
+                </>
+              ) : (
+                <>
+                  <GuestDashboard />
+                  {guestRoutes}
+                </>
+              )
+          }
+        </main>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

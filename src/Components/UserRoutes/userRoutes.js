@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Switch} from 'react-router-dom';
+import {Route, Switch, Redirect} from 'react-router-dom';
 import {commonRoutes} from '../CommonRoutes/commonRoutes';
 import UserPreferences from '../UserRoutes/UserPreferences';
 import Browse from './Browse/Browse';
@@ -50,7 +50,9 @@ export default (
          </>
       )} />
       
-      <Route component={UserPreferences} path='/userpreferences' />
+      <Route path='/userpreferences' component={UserPreferences} />
+
+      <Route exact path='/' render={() => <Redirect to='/browse' /> } />
 
       <Route render={() => <h1>404: Not Found</h1>} />
    </Switch>

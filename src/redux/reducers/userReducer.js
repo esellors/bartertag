@@ -1,7 +1,7 @@
 const initialState = {
    isLoggedIn: false,
-   userId: -1,
-   locationId: -1,
+   userId: null,
+   locationId: null,
    firstName: '',
    lastName: '',
    username: '',
@@ -60,13 +60,16 @@ export default function reducer(state = initialState, action) {
       case LOG_OUT_USER:
          return {
             isLoggedIn: false,
-            userId: '',
+            userId: null,
+            locationId: null,
             firstName: '',
             lastName: '',
             username: '',
             email: '',
+            city: '',
+            state: '',
             joinDate: ''
-         }
+         };
       default: return state;
    }
 };

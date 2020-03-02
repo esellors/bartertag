@@ -1,7 +1,11 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {Link, Redirect} from 'react-router-dom';
 
-export default function Landing() {
+function Landing(props) {
+   console.log(props)
+   // if (props.userId) return <Redirect to='/browse' />
+
    return (
       <div id='guest_landing'>
          <span className='guest_site_desc'>
@@ -32,3 +36,11 @@ export default function Landing() {
       </div>
    );
 }
+
+const mapStateToProps = reduxState => {
+   return {
+      userId: reduxState.user.userId
+   }
+}
+
+export default connect(mapStateToProps)(Landing)

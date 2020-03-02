@@ -23,6 +23,7 @@ class Browse extends Component {
             </div>
          );
       })
+
       return (
          <section id='browse'>
    

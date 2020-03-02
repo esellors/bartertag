@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const app = express();
 const massive = require('massive');
 const session = require('express-session');
 const authRoutes = require('./routes/auth');
@@ -10,12 +11,11 @@ const offersRoutes = require('./routes/offers');
 const notificationsRoutes = require('./routes/notifications');
 const nodemailer = require('nodemailer');
 const contact = require('./controllers/contact');
-const app = express();
 
 const {SERVER_PORT, SESSION_SECRET, DATABASE_STRING, EMAIL_HOST, EMAIL_NAME, EMAIL_PW} = process.env;
 
 app.use((req, res, next) => {
-   console.log('================ server hit ================');
+   console.log('------- SERVER HIT: ' + Math.random());
    next();
 });
 
@@ -23,25 +23,25 @@ app.use(express.json());
 
 app.use( express.static( `${__dirname}/../build` ) );
 
-const transporter = nodemailer.createTransport(
-   {
-      host: EMAIL_HOST,
-      port: 587,
-      secure: false,
-      auth: {
-         user: EMAIL_NAME,
-         pass: EMAIL_PW
-      }
-   }
-);
+// const transporter = nodemailer.createTransport(
+//    {
+//       host: EMAIL_HOST,
+//       port: 587,
+//       secure: false,
+//       auth: {
+//          user: EMAIL_NAME,
+//          pass: EMAIL_PW
+//       }
+//    }
+// );
 
-transporter.verify((error, success) => {
-   if (error) {
-      console.log(error);
-   } else {
-      console.log('Server listening for messages');
-   };
- })
+// transporter.verify((error, success) => {
+//    if (error) {
+//       console.log(error);
+//    } else {
+//       console.log('Server listening for messages');
+//    };
+//  })
  
 
 app.use(session({

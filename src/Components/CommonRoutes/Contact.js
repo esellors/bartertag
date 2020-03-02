@@ -80,7 +80,11 @@ class Contact extends Component{
                      onChange={this.handleInputChange}
                   />
                </span>
-               <button onClick={this.handleSubmit}>Send</button>
+               <button 
+                  id='send_email'
+                  onClick={this.handleSubmit} 
+                  disabled={!this.state.firstName || !this.state.lastName || !this.state.userEmailAddress || !this.state.userEmailBody}
+               >Send</button>
             </form>
          </div>
       );

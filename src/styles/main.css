@@ -582,6 +582,11 @@ button {
           align-items: center;
 }
 
+button#send_email:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
 #footer_container {
   width: 100%;
   display: -webkit-box;

@@ -23,25 +23,25 @@ app.use(express.json());
 
 app.use( express.static( `${__dirname}/../build` ) );
 
-// const transporter = nodemailer.createTransport(
-//    {
-//       host: EMAIL_HOST,
-//       port: 587,
-//       secure: false,
-//       auth: {
-//          user: EMAIL_NAME,
-//          pass: EMAIL_PW
-//       }
-//    }
-// );
+const transporter = nodemailer.createTransport(
+   {
+      host: EMAIL_HOST,
+      port: 465,
+      secure: true,
+      auth: {
+         user: EMAIL_NAME,
+         pass: EMAIL_PW
+      }
+   }
+);
 
-// transporter.verify((error, success) => {
-//    if (error) {
-//       console.log(error);
-//    } else {
-//       console.log('Server listening for messages');
-//    };
-//  })
+transporter.verify((error, success) => {
+   if (error) {
+      console.log(error);
+   } else {
+      console.log('Server listening for messages');
+   };
+ })
  
 
 app.use(session({

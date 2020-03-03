@@ -230,7 +230,7 @@ class AsSecondaryTagger extends Component {
                   </div>
                );
             })
-         : 'New Barter Tags Inbox is Empty.'
+         : 'Nothing to see here.'
     }
 }
 

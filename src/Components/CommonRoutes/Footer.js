@@ -3,9 +3,9 @@ import {Link} from 'react-router-dom';
 
 export default function Footer() {
    return (
-      <div id='footer_container'>
-         <footer>
-            <span>
+      // <div id='footer_container'>
+         <footer id='site_footer'>
+            <div>
                <p>Safety Tips:</p>
                <ul>
                   <li>Never give out personal details if you feel unsafe</li>
@@ -13,7 +13,7 @@ export default function Footer() {
                   <li>Always take a buddy to accompany you on trade meet ups</li>
                   <li><Link to='/contact'>Report User</Link></li>
                </ul>
-            </span>
+            </div>
 
             <ul>
                <li>&copy; 2019 Eric Sellors</li>
@@ -21,6 +21,6 @@ export default function Footer() {
                <li><Link to='/contact'>Contact</Link></li>
             </ul>
          </footer>
-      </div>
+      // </div>
    );
 };

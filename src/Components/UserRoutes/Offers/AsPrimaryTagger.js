@@ -213,7 +213,7 @@ class AsPrimaryTagger extends Component {
                   </div>
                );
             })
-         : 'No Pending Barter Tags.'
+         : 'Nothing to see here.'
     }
 }
 

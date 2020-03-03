@@ -103,7 +103,7 @@ button {
 // page sections
 #routes_top_container {
    width: 100vw;
-   // min-height: 80vh;
+   min-height: 80vh;
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -163,11 +163,8 @@ button {
       }
    }
 
-
-
    main {
-      width: 500px;
-      min-width: 500px;
+      width: 100%;
       padding-bottom: 1em;
       display: flex;
       flex-direction: column;
@@ -247,6 +244,7 @@ button {
             display: flex;
             flex-direction: column;
             justify-content: space-around;
+            margin-top: 20px;
 
             .category_item {
                text-align: center;
@@ -383,15 +381,9 @@ button#send_email:disabled {
    cursor: not-allowed;
 }
 
-#footer_container {
-   width: 100%;
 
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-
-   footer {
-      width: 500px;
+   #site_footer {
+      width: 100%;
       padding: 1em 2.5em 1em;
       box-sizing: border-box;
       display: flex;
@@ -402,7 +394,7 @@ button#send_email:disabled {
          @include textEmphasis;
       }
 
-      span {
+      div {
          width: 90%;
 
          ul {
@@ -418,7 +410,7 @@ button#send_email:disabled {
          justify-content: space-between;
       }
    }
-}
+
 
 @media only screen and (min-width: 800px) {
    // adjust defaults
@@ -469,7 +461,7 @@ button#send_email:disabled {
          width: 800px;
    
          #guest_landing {
-            width: 800px;
+            width: 100%;
    
             .guest_info_section {
                width: 100%;
@@ -492,6 +484,8 @@ button#send_email:disabled {
             
             .offers_detail_section {
                width: 800px;
+               display: flex;
+               justify-content: space-between;
 
                span {
                   display: flex;
@@ -522,25 +516,25 @@ button#send_email:disabled {
       }
    }
 
-   #footer_container {
-      footer {
-         width: 800px;
-         flex-direction: row;
-         justify-content: space-around;
-         align-items: center;
+   #site_footer {
+      width: 100%;
+      min-height: 20vh;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
 
-         & > span {
-            width: 350px;
-         }
-
-         & > ul{
-            width: 150px;
-            flex-direction: column-reverse;
-
-            li {
-               width: 100%;
-            }
-        }
+      & > div {
+         width: 500px;
       }
+
+      & > ul{
+         width: 150px;
+         flex-direction: column-reverse;
+
+         li {
+            width: 100%;
+         }
+      }
+      
    }
  }

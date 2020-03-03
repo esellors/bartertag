@@ -64,6 +64,7 @@ button {
 
 #routes_top_container {
   width: 100vw;
+  min-height: 80vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -91,6 +92,7 @@ button {
 }
 
 #routes_top_container #header_container header {
+  width: 500px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -162,7 +164,7 @@ button {
 }
 
 #routes_top_container main {
-  min-width: 500px;
+  width: 100%;
   padding-bottom: 1em;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -286,6 +288,7 @@ button {
           flex-direction: column;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+  margin-top: 20px;
 }
 
 #routes_top_container main #browse .categories .category_item {
@@ -585,22 +588,8 @@ button#send_email:disabled {
   cursor: not-allowed;
 }
 
-#footer_container {
+#site_footer {
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-#footer_container footer {
-  width: 500px;
   padding: 1em 2.5em 1em;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -616,16 +605,16 @@ button#send_email:disabled {
           align-items: center;
 }
 
-#footer_container footer p {
+#site_footer p {
   color: #000;
   font-weight: 800;
 }
 
-#footer_container footer span {
+#site_footer div {
   width: 90%;
 }
 
-#footer_container footer span ul {
+#site_footer div ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -635,7 +624,7 @@ button#send_email:disabled {
           flex-direction: column;
 }
 
-#footer_container footer ul {
+#site_footer ul {
   width: 100%;
   margin-top: 1.5em;
   display: -webkit-box;
@@ -705,7 +694,7 @@ button#send_email:disabled {
     width: 800px;
   }
   #routes_top_container main #guest_landing {
-    width: 800px;
+    width: 100%;
   }
   #routes_top_container main #guest_landing .guest_info_section {
     width: 100%;
@@ -731,6 +720,12 @@ button#send_email:disabled {
   }
   #routes_top_container main .offers_container .offers_detail_section {
     width: 800px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
   }
   #routes_top_container main .offers_container .offers_detail_section span {
     display: -webkit-box;
@@ -764,29 +759,31 @@ button#send_email:disabled {
     -ms-flex-pack: distribute;
         justify-content: space-around;
   }
-  #footer_container footer {
-    width: 800px;
+  #site_footer {
+    width: 100%;
+    min-height: 20vh;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
             flex-direction: row;
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
   }
-  #footer_container footer > span {
-    width: 350px;
+  #site_footer > div {
+    width: 500px;
   }
-  #footer_container footer > ul {
+  #site_footer > ul {
     width: 150px;
     -webkit-box-orient: vertical;
     -webkit-box-direction: reverse;
         -ms-flex-direction: column-reverse;
             flex-direction: column-reverse;
   }
-  #footer_container footer > ul li {
+  #site_footer > ul li {
     width: 100%;
   }
 }

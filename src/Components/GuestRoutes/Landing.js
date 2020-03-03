@@ -11,7 +11,7 @@ function Landing(props) {
          <span className='guest_site_desc'>
             <h4>Trade with Others</h4>
             <h5>
-               BarterTag is a new way to repurpose your unused items and stay green!
+               BarterTag is a new way to repurpose your unused items!
             </h5>
          </span>
 

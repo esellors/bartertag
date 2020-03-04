@@ -133,8 +133,6 @@ export default function offersReducer(state = initialState, action) {
             primaryItemsDetails: primaryItemsDetailsRes,
             secondaryItemDetails: secondaryItemDetailsRes
          }
-      case `${UPDATE_OFFERS}_REJECTED`:
-         return console.log(payload.response);
       case `${UPDATE_OFFERS}_FULFILLED`:
          return {
             ...state,
@@ -155,7 +153,6 @@ export default function offersReducer(state = initialState, action) {
          alert(payload.response.data);
          return { ...state };
       case `${RESPOND_TO_OFFER}_FULFILLED`:
-         console.log(payload)
          alert(payload);
          return { ...state };
       case `${UPDATE_STATUS_TO_SEEN}_REJECTED`:

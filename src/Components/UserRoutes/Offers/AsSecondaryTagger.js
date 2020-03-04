@@ -20,7 +20,6 @@ class AsSecondaryTagger extends Component {
             const filteredOffers = [];
 
             offers.forEach(offer => {
-                console.log(offer)
                 let index = filteredOffers.findIndex(filteredOffer => filteredOffer.offer_id === offer.offer_id);
 
                 if (index < 0) filteredOffers.push(offer)
@@ -32,10 +31,6 @@ class AsSecondaryTagger extends Component {
     displayItemDetails(e, secondaryItemId, primaryItem1Id, primaryItem2Id, primaryItem3Id, messageId, taggedUserId) {
       const offerId = parseInt(e.target.name);
       const {userId, fetchOfferItemsDetails, updateStatusToSeen} = this.props;
-
-      console.log(offerId)
-      console.log(this.state.displayOfferId)
-
 
       // close current details view
       if (offerId === this.state.displayOfferId) {

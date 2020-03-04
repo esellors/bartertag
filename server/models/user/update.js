@@ -1,7 +1,6 @@
 const bcrypt = require('bcryptjs');
 
 const update = async function (req, res) {
-   console.log(req.body)
    const {userId, firstName, lastName, username, email, city, state, password} = req.body;
    const db = req.app.get('db');
 

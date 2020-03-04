@@ -1,7 +1,4 @@
 const detailsUpdate = async function(req, res) {
-
-   console.log(req.body)
-
    const {user_item_id, item_category, item_condition, item_name, item_desc, img_aws_key, img_aws_url} = req.body;
 
    const db = req.app.get('db');

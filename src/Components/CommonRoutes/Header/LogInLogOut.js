@@ -21,9 +21,7 @@ class LogInLogOut extends Component {
       Axios.get('/auth/getsession')
          .then(res => {
             if (res.status === 204) {
-               console.log(res.status)
                this.props.history.push('/')
-               console.log('No active user session');
             } else if (res.status === 200) {
                this.props.logInUser(res.data)
                this.props.history.push('/browse')

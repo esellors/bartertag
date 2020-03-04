@@ -3,9 +3,6 @@ import {connect} from 'react-redux';
 import {Link, Redirect} from 'react-router-dom';
 
 function Landing(props) {
-   console.log(props)
-   // if (props.userId) return <Redirect to='/browse' />
-
    return (
       <div id='guest_landing'>
          <span className='guest_site_desc'>

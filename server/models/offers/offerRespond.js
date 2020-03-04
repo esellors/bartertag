@@ -3,8 +3,6 @@ const offerRespond = async function (req, res) {
 
    const db = req.app.get('db');
 
-   console.log(req.body);
-
    if (offerStatus === 'closed') {
 
       try {

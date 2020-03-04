@@ -12,7 +12,6 @@ aws.config.update({
 const s3 = new aws.S3();
 
 const imgDelete = function(req, res, next) {
-console.log(req.body)
    let deleteItems = [];
 
 	req.body.key.forEach(function(image) { 
@@ -33,7 +32,6 @@ console.log(req.body)
          return res.status(400).json(err)
       } else {
          console.log('Successfully Deleted Image'); 
-         console.log(data.Deleted)
          
          return res.status(200).json({
             message: 'Successfully Deleted',

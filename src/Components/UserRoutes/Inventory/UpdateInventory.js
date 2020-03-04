@@ -56,7 +56,6 @@ class UpdateInventory extends Component {
    }
    inputChangeHandler(e) {
       if (e.target.name === 'img_btn') {
-         console.log(e.target.files)
          this.setState({ 
             selectedImg: e.target.files[0],
             selectedImgFileUrl: URL.createObjectURL(e.target.files[0])
@@ -90,7 +89,6 @@ class UpdateInventory extends Component {
    }
    submitItemHandler(e) {
       e.preventDefault();
-      // console.log(this.state.uneditedItemInfo.img_aws_key)
       const button = e.target.name;
 
       this.setState({ submitDisabled: true }); // Disable double clicking

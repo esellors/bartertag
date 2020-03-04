@@ -88,7 +88,10 @@ class LogInLogOut extends Component {
                               value={this.state.password}
                            />
                         </span>
-                        <button type='submit'>Log In</button>
+                        <button 
+                           type='submit'
+                           disabled={!this.state.username || !this.state.password}
+                        >Log In</button>
                      </div>
                   </form>   
             }

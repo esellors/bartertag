@@ -62,8 +62,13 @@ button {
   cursor: pointer;
 }
 
+button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
 #routes_top_container {
-  width: 100vw;
+  width: 100%;
   min-height: 80vh;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -320,8 +325,6 @@ button {
 #routes_top_container main .product_summary .img_container {
   width: 150px;
   margin-right: 1em;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
   background: #fff;
   text-align: center;
   display: -webkit-box;
@@ -582,16 +585,9 @@ button {
           align-items: center;
 }
 
-button#send_email:disabled {
-  background-color: gray;
-  cursor: not-allowed;
-}
-
 #site_footer {
   width: 100%;
   padding: 1em 2.5em 1em;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -784,7 +780,6 @@ button#send_email:disabled {
     width: 45%;
   }
   #site_footer {
-    width: 100%;
     min-height: 20vh;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;

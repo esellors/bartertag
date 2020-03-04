@@ -59,7 +59,7 @@ class AsPrimaryTagger extends Component {
             offers.map((offer, i) => {
                const {userId, secondaryItemDetails, primaryItemsDetails} = this.props;
 
-               const {offer_id, time_initiated, tagged_user_id, username, secondary_user_id, city, state, secondary_item_id, primary_item1_id, primary_item2_id, primary_item3_id, sender_user_id, time_of_message, message_remark, message_status, message_text, offer_message_id} = offer;
+               const {offer_id, time_initiated, tagged_user_id, username, secondary_user_id, city, state, secondary_item_id, primary_item1_id, primary_item2_id, primary_item3_id, time_of_message, message_remark, message_status, message_text, offer_message_id} = offer;
 
                return (
                   <div className='offers_detail' key={`${i + section}-secondary-${offer_id}`}>

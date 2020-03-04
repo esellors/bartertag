@@ -4,17 +4,8 @@ import AsPrimaryTagger from './AsPrimaryTagger';
 import AsSecondaryTagger from './AsSecondaryTagger';
 
 class OpenOffers extends Component {
-   constructor(props) {
-      super(props);
-      this.state = {
-          displayOfferId: null,
-          lastDisplayedOfferId: null
-      };
-   }
-
    render() {
       const {newOffers, pendingOffersAsPrimary, pendingOffersAsSecondary} = this.props;
-      const {displayOfferId} = this.state;
 
       return (
          <div className='offers_container'>

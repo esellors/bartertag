@@ -26,7 +26,7 @@ class Product extends Component {
    render() {
       const {toggleBarterOffer} = this.state;
 
-      const {user_id, item_name, item_desc, time_added, img_aws_url} = this.props.productView;
+      const {user_id, item_name, item_desc, img_aws_url} = this.props.productView;
 
       let {item_condition} = this.props.productView;
 

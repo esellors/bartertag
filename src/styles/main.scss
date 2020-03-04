@@ -277,7 +277,6 @@ button {
          }
 
          .item_info {
-            min-width: 300px;
             margin-bottom: 1em;
             display: flex;
             flex-direction: column;
@@ -434,7 +433,6 @@ button#send_email:disabled {
    // adjust sections
    #routes_top_container {
       
-      
       #header_container {
          width: 800px;
    
@@ -512,6 +510,10 @@ button#send_email:disabled {
                display: flex;
                justify-content: space-around;
             }
+         }
+
+         .product_summary {
+
          }
       }
    }

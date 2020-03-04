@@ -339,7 +339,6 @@ button {
 }
 
 #routes_top_container main .product_summary .item_info {
-  min-width: 300px;
   margin-bottom: 1em;
   display: -webkit-box;
   display: -ms-flexbox;

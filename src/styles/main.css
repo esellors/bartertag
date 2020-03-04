@@ -178,9 +178,6 @@ button:disabled {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
 }
 
 #routes_top_container main .new_notification {
@@ -435,7 +432,7 @@ button:disabled {
 }
 
 #routes_top_container main .offers_dashboard ul {
-  width: 500px;
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -444,7 +441,7 @@ button:disabled {
 }
 
 #routes_top_container main .offers_detail_section {
-  width: 500px;
+  width: 100%;
   padding-top: .5em;
   padding-left: 1em;
   padding-right: 1em;
@@ -559,7 +556,7 @@ button:disabled {
   border-color: #8b8686;
   -webkit-box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.25);
           box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.25);
-  width: 500px;
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

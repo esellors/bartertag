@@ -115,7 +115,7 @@ button:disabled {
    background: linear-gradient( rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65) ), url(../assets/bg_guest_landing.jpg) no-repeat center center fixed;
    background-size: cover;
    background-color: #000;
-
+   
    #header_container {
       width: 100%;
       display: flex;
@@ -173,7 +173,7 @@ button:disabled {
       padding-bottom: 1em;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      // align-items: center;
 
       .new_notification {
          display: inline-block;
@@ -319,14 +319,14 @@ button:disabled {
       .offers_dashboard {
 
          ul {
-            width: 500px;
+            width: 100%;
             display: flex;
             justify-content: space-around;
          }
       }
 
       .offers_detail_section {
-         width: 500px;
+         width: 100%;
          padding-top: .5em;
          padding-left: 1em;
          padding-right: 1em;
@@ -365,7 +365,7 @@ button:disabled {
       #register_update_user {
          @include cardLayout;
 
-         width: 500px;
+         width: 100%;
          display: flex;
          flex-direction: column;
          align-items: center;

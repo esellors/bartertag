@@ -1,4 +1,4 @@
-import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
 import promise from 'redux-promise-middleware';
 import userReducer from './reducers/userReducer';
 import inventoryReducer from './reducers/inventoryReducer';
@@ -14,6 +14,6 @@ const rootReducer = combineReducers({
    notifications: notificationsReducer
 });
 
-const devTools = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__() : null;
+// const devTools = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__() : null;
 
-export default createStore(rootReducer, compose(applyMiddleware(promise), devTools));
+export default createStore(rootReducer, applyMiddleware(promise));

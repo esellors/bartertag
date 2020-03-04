@@ -126,7 +126,7 @@ class ViewInventory extends Component {
          : <p>Nothing in your inventory, yet.</p>
 
       return (
-         <div>
+         <div id='inventory_container'>
             <h5>Your Inventory</h5>
             {allInventoryMapped}
          </div>

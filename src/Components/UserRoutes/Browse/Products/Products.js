@@ -82,10 +82,12 @@ class Products extends Component {
          : 'Nothing to display'
     
       return (
-         <div>
+         <>
             <h4>Browsing: {this.props.match.params.category}</h4>
-            {categoryProductsMapped}
-         </div>
+            <div id='products_container'>
+               {categoryProductsMapped}
+            </div>
+         </>
       );
    }
 }

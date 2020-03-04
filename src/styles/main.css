@@ -770,6 +770,19 @@ button#send_email:disabled {
     -ms-flex-pack: distribute;
         justify-content: space-around;
   }
+  #routes_top_container main #products_container {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+  #routes_top_container main #products_container .product_summary {
+    width: 45%;
+  }
   #site_footer {
     width: 100%;
     min-height: 20vh;

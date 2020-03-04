@@ -519,8 +519,15 @@ button#send_email:disabled {
             }
          }
 
-         .product_summary {
+         #products_container {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
 
+            .product_summary {
+               width: 45%;
+            }
          }
       }
    }

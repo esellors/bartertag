@@ -1,8 +1,7 @@
 {
-  "name": "barterloo",
+  "name": "bartertag",
   "version": "0.1.0",
   "private": true,
-  "main": "server",
   "proxy": "http://localhost:5050",
   "dependencies": {
     "aws-sdk": "^2.479.0",

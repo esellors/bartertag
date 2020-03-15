@@ -4,6 +4,7 @@ import './styles/reset.css';
 import './styles/main.css';
 import guestRoutes from './Components/GuestRoutes/guestRoutes';
 import userRoutes from './Components/UserRoutes/userRoutes';
+import Referrer from './Components/Referrer/Referrer';
 import Header from './Components/CommonRoutes/Header/Header';
 import GuestDashboard from './Components/GuestRoutes/GuestDashboard';
 import UserDashboard from './Components/UserRoutes/UserDashboard';
@@ -13,6 +14,7 @@ function App(props) {
 
   return (
     <>
+      { document.referrer === 'https://www.esellors.com/' ? <Referrer /> : null }
       <div id='routes_top_container'>
         <Header />
         <main>

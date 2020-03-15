@@ -14,8 +14,8 @@ function App(props) {
 
   return (
     <>
+      { document.referrer === 'https://www.esellors.com/' ? <Referrer /> : null }
       <div id='routes_top_container'>
-      { document.referrer !== 'https://www.esellors.com/' ? <Referrer /> : null }
         <Header />
         <main>
           {

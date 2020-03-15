@@ -2,7 +2,7 @@ import React from 'react';
 import './Referrer.css';
 
 const Referrer = () => {
-    const targetProject = 'foodoo';
+    const targetProject = 'bartertag';
 
     return (
         <div id='referrer'>

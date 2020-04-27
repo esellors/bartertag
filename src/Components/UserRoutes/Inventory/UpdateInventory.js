@@ -333,12 +333,8 @@ class UpdateInventory extends Component {
                         <img src={this.state.selectedImgFileUrl} alt='Item Preview' />
                      :  null
                   }
-                  
                </div>
                <div>
-                  <p>
-                     Image size and requirements: size, type, no file chosen
-                  </p>
                   <input 
                      type='file' 
                      name='img_btn'
@@ -372,7 +368,6 @@ class UpdateInventory extends Component {
                         <button disabled={this.state.submitDisabled} onClick={this.submitItemHandler}>Add Item</button>
                      </span>
                }
-
             </div>
          </form>
       );

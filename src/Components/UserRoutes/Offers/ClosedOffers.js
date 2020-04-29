@@ -11,16 +11,15 @@ class ClosedOffers extends Component {
          ?
             closedOffersAsPrimary.map(offer => {
 
-               const {offer_id, time_initiated, time_finalized, finalizing_user_id, finalizing_remark, username, city, state} = offer;
+               const {offer_id, time_initiated, time_finalized, finalizing_user_id, finalizing_remark} = offer;
 
                const {userId} = this.props;
 
-               const finalizingUser = userId === finalizing_user_id ? 'You' : username;
+               const finalizingUser = userId === finalizing_user_id ? 'YOU' : 'THEM';
 
                return (
                   <div className='offer_closed' key={`${offer_id}-${Date.now()}`}>
-                     <p>Barter Tag with {username} from {city}, {state}.</p>
-                     <p>Tag closed by {finalizingUser} on {time_finalized}.</p>
+                     <p>BarterTag closed by {finalizingUser} on {time_finalized}.</p>
                      <p>Closing Tag Remark: {finalizing_remark}</p>
                      <p>Tag first initiated on {time_initiated}</p>
                   </div>
@@ -32,18 +31,17 @@ class ClosedOffers extends Component {
       ?
          closedOffersAsSecondary.map(offer => {
 
-            const {offer_id, time_initiated, time_finalized, finalizing_user_id, finalizing_remark, username, city, state} = offer;
+            const {offer_id, time_initiated, time_finalized, finalizing_user_id, finalizing_remark} = offer;
 
             const {userId} = this.props;
 
-            const finalizingUser = userId === finalizing_user_id ? 'You' : username;
+            const finalizingUser = userId === finalizing_user_id ? 'YOU' : 'THEM';
 
             return (
                <div className='offer_closed' key={`${offer_id}-${Date.now()}`}>
-                  <p>Barter Tag with {username} from {city}, {state}.</p>
-                  <p>Tag closed by {finalizingUser} on {time_finalized}.</p>
-                  <p>Closing Tag Remark: {finalizing_remark}</p>
-                  <p>Tag first initiated on {time_initiated}</p>
+                  <p>BarterTag closed by {finalizingUser} on {time_finalized}.</p>
+                     <p>Closing Tag Remark: {finalizing_remark}</p>
+                     <p>Tag first initiated on {time_initiated}</p>
                </div>
             );
          })

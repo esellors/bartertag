@@ -12,21 +12,21 @@ class OpenOffers extends Component {
             <div className='offers_detail_section'>
                <h5>New Tags From Others</h5>
 
-                  <AsSecondaryTagger offers={newOffers} section='section1' />
+                  <AsSecondaryTagger offers={newOffers} section='newOffers' />
    
             </div>
 
             <div className='offers_detail_section'>
                <h5>Open Tags You Started</h5>
 
-                  <AsPrimaryTagger offers={pendingOffersAsPrimary} section='section2' />
+                  <AsPrimaryTagger offers={pendingOffersAsPrimary} section='pendingOffersAsPrimary' />
    
             </div>
 
             <div className='offers_detail_section'>
                <h5>Open Tags Others Started</h5>
 
-                  <AsSecondaryTagger offers={pendingOffersAsSecondary} section='section3' />
+                  <AsSecondaryTagger offers={pendingOffersAsSecondary} section='pendingOffersAsSecondary' />
    
             </div>
          </div>
@@ -36,6 +36,8 @@ class OpenOffers extends Component {
 
 const mapStateToProps = reduxState => {
    const {newOffers, pendingOffersAsPrimary, pendingOffersAsSecondary} = reduxState.offers;
+
+   console.log(reduxState.offers)
 
    return {
       newOffers,

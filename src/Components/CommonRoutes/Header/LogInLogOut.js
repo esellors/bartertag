@@ -55,6 +55,8 @@ class LogInLogOut extends Component {
          .catch(err => console.log(err));
    }
    render() {
+      console.log(this.props.userId)
+      
       return (
          <>
             {
@@ -102,7 +104,8 @@ class LogInLogOut extends Component {
 const mapStateToProps = reduxState => {
    return {
       isLoggedIn: reduxState.user.isLoggedIn,
-      userFirstName: reduxState.user.firstName
+      userFirstName: reduxState.user.firstName,
+      userId: reduxState.user.userId
    };
 };
 

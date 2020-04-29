@@ -60,7 +60,7 @@ class AsSecondaryTagger extends Component {
             offers.map((offer, i) => {
                const {userId, secondaryItemDetails, primaryItemsDetails} = this.props;
 
-               const {offer_id, time_initiated, tagged_user_id, username, secondary_user_id, city, state, secondary_item_id, primary_item1_id, primary_item2_id, primary_item3_id, time_of_message, message_remark, message_status, message_text, offer_message_id} = offer;
+               const {offer_id, time_initiated, tagged_user_id, username, primary_user_id, secondary_user_id, city, state, secondary_item_id, primary_item1_id, primary_item2_id, primary_item3_id, time_of_message, message_remark, message_status, message_text, offer_message_id} = offer;
 
                switch(secondaryItemDetails.item_condition) {
                   case '1':
@@ -90,16 +90,11 @@ class AsSecondaryTagger extends Component {
                         </span>
 
                         <span>
-                           <h5>Barter with</h5>
-                           <p>{username} from {city}, {state}</p>
-                        </span>
-
-                        <span>
                            <h5>Tagged User</h5>
                            <p>{
                               tagged_user_id && tagged_user_id === userId
-                                 ? `${username} is awaiting your response!`
-                                 : `Awaiting ${username}'s response!` 
+                                 ? 'They are awaiting your response!'
+                                 : 'Awaiting their response!'
                            }</p>
                         </span>
                      </div>
@@ -109,7 +104,7 @@ class AsSecondaryTagger extends Component {
                            <h5>Message Sender</h5>
                            <p>{
                               tagged_user_id && tagged_user_id === userId
-                                 ? username
+                                 ? 'Them'
                                  : 'You'
                            }</p>
                         </span>
@@ -144,7 +139,7 @@ class AsSecondaryTagger extends Component {
                      {displayOfferId === offer_id
                         ?
                            <>
-                              <BarterOffer offerStatus='pending' offerId={offer_id} secondaryUserIdPending={secondary_user_id} />
+                              <BarterOffer offerStatus='pending' offerId={offer_id} primaryUserId={primary_user_id} secondaryUserId={secondary_user_id} oldTaggedUserId={tagged_user_id} />
 
                               <div>
                                  <div>

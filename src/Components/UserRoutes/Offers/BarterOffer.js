@@ -65,13 +65,12 @@ class BarterOffer extends Component {
       // Responding to current offer
       if (offerStatus === 'pending') {
          const {closeRemark, finalizingUserId} = this.state;
-         const {secondaryUserIdPending} = this.props;
 
          if (!userMessage && !userMessageRemark && !closeRemark) return alert('You have not created a response.');
          
-         const {offerId, userId} = this.props;
+         const {offerId, userId, secondaryUserId, oldTaggedUserId} = this.props;
 
-         const taggedUserId = userId === primaryUserId ? secondaryUserIdPending : userId;
+         const taggedUserId = oldTaggedUserId === primaryUserId ? secondaryUserId : primaryUserId;
 
          offerStatus = closeRemark ? 'closed' : offerStatus;
 

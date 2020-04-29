@@ -80,6 +80,7 @@ class LogInLogOut extends Component {
                         <span>
                            <label htmlFor='login-password-input'>Password</label>
                            <input
+                              type='password'
                               id='login-password-input'
                               name='password'
                               placeholder='password'

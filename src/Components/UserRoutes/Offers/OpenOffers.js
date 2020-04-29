@@ -37,8 +37,6 @@ class OpenOffers extends Component {
 const mapStateToProps = reduxState => {
    const {newOffers, pendingOffersAsPrimary, pendingOffersAsSecondary} = reduxState.offers;
 
-   console.log(reduxState.offers)
-
    return {
       newOffers,
       pendingOffersAsPrimary,

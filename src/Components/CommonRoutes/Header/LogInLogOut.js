@@ -10,8 +10,8 @@ class LogInLogOut extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         username: 'chucktesta',
-         password: 'testtest'
+         username: '',
+         password: ''
       };
       this.handleInputChange = this.handleInputChange.bind(this);
       this.handleLogIn = this.handleLogIn.bind(this);
